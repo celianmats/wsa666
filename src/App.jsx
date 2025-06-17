@@ -167,10 +167,13 @@ function App() {
                   <p className="text-sm text-gray-600">Safe Place</p>
                 </div>
               </div>
+              <div className="flex items-center space-x-3">
               <Button onClick={() => setCurrentPage('home')} variant="outline">
                 <Home className="w-4 h-4 mr-2" />
-                Retour à l'accueil
+                {t('home.back')}
               </Button>
+              <Button onClick={switchLang} variant="outline" className="w-15">🌐 {i18n.language === 'fr' ? 'FR' : 'EN'}</Button>
+              </div>
             </div>
           </div>
         </header>
@@ -259,6 +262,7 @@ function App() {
                   <Home className="w-4 h-4 mr-2" />
                   {t('nav.home')}
                 </Button>
+                <Button onClick={switchLang} variant="outline" className="w-15">🌐 {i18n.language === 'fr' ? 'FR' : 'EN'}</Button>
               </div>
             </div>
           </div>
@@ -299,6 +303,7 @@ function App() {
                   <Home className="w-4 h-4 mr-2" />
                   {t('nav.home')}
                 </Button>
+                <Button onClick={switchLang} variant="outline" className="w-15">🌐 {i18n.language === 'fr' ? 'FR' : 'EN'}</Button>
               </div>
             </div>
           </div>
@@ -335,7 +340,7 @@ function App() {
             <div className="flex items-center gap-4">
               <Button onClick={() => setCurrentPage('auth')} variant="outline">
                 <User className="w-4 h-4 mr-2" />
-                {user ? user.email.split('@')[0] : t('nav.login')}
+                {user ? user.email : t('nav.login')}
               </Button>
               <Button onClick={switchLang} variant="outline" className="w-15">🌐 {i18n.language === 'fr' ? 'FR' : 'EN'}</Button>
             </div>

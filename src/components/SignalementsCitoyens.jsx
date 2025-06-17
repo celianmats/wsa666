@@ -342,13 +342,13 @@ const SignalementsCitoyens = ({ user, onNavigate }) => {
             </SelectContent>
           </Select>
 
-          <Tabs value={viewMode} onValueChange={setViewMode} className="w-full md:w-[180px]">
+          <Tabs value={viewMode} onValueChange={setViewMode} className="w-full md:w-[220px]">
             <TabsList className="grid w-full grid-cols-2">
               <TabsTrigger value="grille">
-                <Grid className="w-4 h-4 mr-2" /> {t("signalements.view_mode.grid")}
+                <Grid className="w-4 h-4" /> {t("signalements.view_mode.grid")}
               </TabsTrigger>
-              <TabsTrigger value="timeline">
-                <Clock className="w-4 h-4 mr-2" /> {t("signalements.view_mode.timeline")}
+              <TabsTrigger value="timeline" className="text-xs">
+                <Clock className="w-4 h-4" /> {t("signalements.view_mode.timeline")}
               </TabsTrigger>
             </TabsList>
           </Tabs>

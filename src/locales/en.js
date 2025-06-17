@@ -19,6 +19,7 @@ export default {
       valueA: "Inclusive",
       valueB: "Sustainable",
       valueC: "Connected",
+      back: "Back to home page",
       hero: {
         discover: "Discover projects",
         report: "Share a tip",
@@ -73,35 +74,46 @@ export default {
     // Authentication
     auth: {
       title: "Authentication",
+      description: "Sign in or create an account to report issues",
       login: {
         title: "Sign In",
         email: "Email address",
         password: "Password",
         submit: "Sign In",
-        switchToRegister: "No account? Create an account"
+        loading: "Signing in...",
+        switchToRegister: "No account? Create an account",
+        success: "Successfully signed in!"
       },
       register: {
         title: "Sign Up",
         displayName: "Display name",
+        noDisplayName: "Not set",
         email: "Email address",
         password: "Password",
         submit: "Create account",
-        switchToLogin: "Already have an account? Sign In"
+        loading: "Creating...",
+        switchToLogin: "Already have an account? Sign In",
+        success: "Account successfully created!"
+      },
+      logout: {
+        button: "Sign Out",
+        success: "Successfully signed out"
       },
       errors: {
         invalidEmail: "Invalid email address",
         weakPassword: "Password must contain at least 6 characters",
         userNotFound: "No user found with this email address",
         wrongPassword: "Incorrect password",
-        emailInUse: "This email address is already in use"
+        emailInUse: "This email address is already in use",
+        generic: "An error occurred. Please try again."
       }
     },
 
     // Signalements (now Tips & Info)
-    signalement: {
-      title: "Citizen Tips & Info",
-      subtitle: "Share your tips, initiatives, and useful information for the neighborhood.",
-      search: "Search for a tip or info...",
+    signalements: {
+      title: "Citizen Tips & Information",
+      subtitle: "Share your tips, initiatives, and useful information for the city.",
+      search_placeholder: "Search tips or info...",
       filters: {
         allStatuses: "All statuses",
         allCategories: "All categories",
@@ -114,49 +126,50 @@ export default {
         archived: "Archived"
       },
       categories: {
-        itinerary: "Practical itineraries",
-        event: "Events & Initiatives",
-        green_hub: "Green Hubs",
+        practical_itinerary: "Practical itineraries",
+        local_event: "Events & Initiatives",
+        green_hub: "Green hubs",
         accessibility: "Accessibility",
-        local_tip: "Local tip",
-        other: "Other"
+        general_advice: "Local tip",
       },
-      noResults: "No tips or info found",
-      noResultsDesc: "Try modifying your search filters.",
+      noResults: "No tips or information found",
+      noResultsDesc: "Try adjusting your search filters.",
       createReport: "Share a tip or info",
       myReports: "My contributions",
       notConnected: {
-        title: "Participate in neighborhood improvement",
-        description: "Sign in to share your tips and initiatives.",
-        login: "Sign In"
+        title: "Contribute to improving the city",
+        description: "Log in to share your tips and initiatives.",
+        login: "Log in"
       },
       new_report: {
-        title: "Share a new tip or info",
+        title: "Share a new tip or information",
         description: "Fill out the form below to share your contribution with the community."
       },
       form: {
         category_label: "Category",
         category_placeholder: "Select a category",
         description_label: "Description",
-        description_placeholder: "Describe your tip or info in detail...",
+        description_placeholder: "Describe your tip or information in detail...",
         latitude_label: "Latitude",
         longitude_label: "Longitude",
-        location_name_label: "Location Name (optional)",
-        location_name_placeholder: "Ex: Ariane Park, Bus stop X",
-        get_location_button: "Get my current location",
-        image_label: "Photo (optional)",
-        image_formats: "Accepted formats: JPG, PNG, GIF. Max 5MB.",
-        submitting_button: "Submitting...",
-        submit_button: "Share tip"
+        // Ajoute d'autres champs ici si besoin
       },
-      list: {
-        no_reports_title: "No contributions found",
-        no_reports_description: "You haven't shared any tips or information yet."
-      },
-      image_alt: "Tip or info image",
       timeline: {
-        title: "History"
-      }
+        location: "Location",
+        date: "Date",
+        follow_up_title: "Follow-up",
+      },
+      view_mode: {
+        grid: "Grid",
+        timeline: "Timeline"
+      },
+      not_logged_in: {
+        title: "Participate in the city’s improvement",
+        description: "Log in to share your tips and initiatives.",
+        login_button: "Log in"
+      },
+      no_signalements_found: "No tips or information found",
+      try_adjusting_filters: "Try adjusting your filters"
     },
 
     // Projects

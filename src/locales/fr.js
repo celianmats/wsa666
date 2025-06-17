@@ -19,6 +19,7 @@ export default {
       valueA: "Inclusif",
       valueB: "Durable",
       valueC: "Connecté",
+      back: "Retour à l'accueil",
       hero: {
         discover: "Découvrir les projets",
         report: "Partager un conseil",
@@ -73,89 +74,128 @@ export default {
     // Authentification
     auth: {
       title: "Authentification",
+      description: "Connectez-vous ou créez un compte pour signaler des problèmes",
       login: {
         title: "Connexion",
         email: "Adresse email",
         password: "Mot de passe",
         submit: "Se connecter",
-        switchToRegister: "Pas de compte ? Créer un compte"
+        loading: "Connexion...",
+        switchToRegister: "Pas de compte ? Créer un compte",
+        success: "Connexion réussie !"
       },
       register: {
         title: "Inscription",
         displayName: "Nom d'affichage",
+        noDisplayName: "Non défini",
         email: "Adresse email",
         password: "Mot de passe",
         submit: "Créer un compte",
-        switchToLogin: "Déjà un compte ? Se connecter"
+        loading: "Création...",
+        switchToLogin: "Déjà un compte ? Se connecter",
+        success: "Compte créé avec succès !"
+      },
+      logout: {
+        button: "Se déconnecter",
+        success: "Déconnexion réussie"
       },
       errors: {
         invalidEmail: "Adresse email invalide",
         weakPassword: "Le mot de passe doit contenir au moins 6 caractères",
         userNotFound: "Aucun utilisateur trouvé avec cette adresse email",
         wrongPassword: "Mot de passe incorrect",
-        emailInUse: "Cette adresse email est déjà utilisée"
+        emailInUse: "Cette adresse email est déjà utilisée",
+        generic: "Une erreur est survenue. Veuillez réessayer."
       }
     },
 
     // Signalements (maintenant Conseils & Infos)
-    signalement: {
+    signalements: {
       title: "Conseils & Infos Citoyens",
       subtitle: "Partagez vos astuces, initiatives et informations utiles pour la ville.",
-      search: "Rechercher un conseil ou une info...",
+      search_placeholder: "Rechercher un conseil ou une info...",
       filters: {
         allStatuses: "Tous les statuts",
-        allCategories: "Toutes les catégories",
-        grid: "Grille",
-        timeline: "Timeline"
+        allCategories: "Toutes les catégories"
       },
       statuses: {
-        published: "Publié",
-        pending: "En attente",
-        archived: "Archivé"
+        published: "Publié"
       },
       categories: {
-        itinerary: "Itinéraires pratiques",
-        event: "Événements & Initiatives",
+        practical_itinerary: "Itinéraires pratiques",
+        local_event: "Événements locaux",
         green_hub: "Hubs verts",
         accessibility: "Accessibilité",
-        local_tip: "Astuce locale",
-        other: "Autre"
+        general_advice: "Conseil général"
       },
-      noResults: "Aucun conseil ou info trouvé",
-      noResultsDesc: "Essayez de modifier vos filtres de recherche.",
-      createReport: "Partager un conseil ou une info",
-      myReports: "Mes contributions",
-      notConnected: {
+      view_mode: {
+        grid: "Grille",
+        timeline: "Chronologie"
+      },
+      no_signalements_found: "Aucun conseil ou info trouvé",
+      try_adjusting_filters: "Essayez de modifier vos filtres de recherche.",
+      not_logged_in: {
         title: "Participez à l'amélioration de la ville",
         description: "Connectez-vous pour partager vos conseils et initiatives.",
-        login: "Se connecter"
+        login_button: "Se connecter"
       },
-      new_report: {
-        title: "Partager un nouveau conseil ou une info",
-        description: "Remplissez le formulaire ci-dessous pour partager votre contribution avec la communauté."
-      },
-      form: {
-        category_label: "Catégorie",
-        category_placeholder: "Sélectionnez une catégorie",
-        description_label: "Description",
-        description_placeholder: "Décrivez votre conseil ou information en détail...",
-        latitude_label: "Latitude",
-        longitude_label: "Longitude",
-        location_name_label: "Nom du lieu (optionnel)",
-        location_name_placeholder: "Ex: Parc de l'Ariane, Arrêt de bus X",
-        get_location_button: "Obtenir ma position actuelle",
-        image_label: "Photo (optionnel)",
-        image_formats: "Formats acceptés : JPG, PNG, GIF. Max 5MB.",
-        submitting_button: "Envoi en cours...",
-        submit_button: "Partager le conseil"
-      },
-      list: {
-        no_reports_title: "Aucune contribution trouvée",
-        no_reports_description: "Vous n'avez pas encore partagé de conseils ou d'informations."
-      },
-      image_alt: "Image du conseil ou de l'information",
       timeline: {
-        title: "Historique"
+        follow_up_title: "Suivi",
+        location: "Lieu",
+        date: "Date"
+      },
+      locale: "fr-FR", // utilisé dans les appels à `toLocaleDateString`
+      items: {
+        itineraire_pratique_01: {
+          title: "Astuce vélo : raccourci sécurisé",
+          description: "Un itinéraire sûr à travers le parc pour les cyclistes.",
+          descriptionComplete: "Ce chemin traverse le parc central et évite la circulation dense.",
+          author: "Marie Dupont",
+          location: "Parc Central",
+          timeline: [
+            { title: "Partagé par Marie" }
+          ]
+        },
+        evenement_local_01: {
+          title: "Journée nettoyage de quartier",
+          description: "Rassemblement citoyen pour un quartier propre.",
+          descriptionComplete: "Le samedi 15 juin, retrouvons-nous à 10h pour nettoyer les rues.",
+          author: "Jean Martin",
+          location: "Place des Fêtes",
+          timeline: [
+            { title: "Événement annoncé" }
+          ]
+        },
+        hub_vert_01: {
+          title: "Ouverture du jardin partagé",
+          description: "Un nouvel espace vert collaboratif en centre-ville.",
+          descriptionComplete: "Le jardin est ouvert à tous pour planter, arroser, récolter.",
+          author: "Clara Morel",
+          location: "Rue des Lilas",
+          timeline: [
+            { title: "Inauguration du hub vert" }
+          ]
+        },
+        accessibilite_01: {
+          title: "Rampe d'accès ajoutée",
+          description: "Amélioration de l'accès à la mairie.",
+          descriptionComplete: "Une rampe d'accès a été ajoutée à l'entrée principale de la mairie.",
+          author: "Paul Durand",
+          location: "Mairie centrale",
+          timeline: [
+            { title: "Modification signalée" }
+          ]
+        },
+        conseil_general_01: {
+          title: "Appli mobile : signaler un problème",
+          description: "Utilisez l'appli pour signaler des problèmes urbains.",
+          descriptionComplete: "Téléchargez l'application mobile pour participer à la gestion citoyenne.",
+          author: "Service Communication",
+          location: "Hôtel de Ville",
+          timeline: [
+            { title: "Conseil publié" }
+          ]
+        }
       }
     },
 
