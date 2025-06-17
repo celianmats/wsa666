@@ -174,13 +174,6 @@ Pour contribuer au projet :
 
 Ce projet est développé dans le cadre d'une initiative publique pour la ville de Nice.
 
-## 🏆 Crédits
-
-- **Développement** : Manus AI
-- **Design** : Interface moderne et accessible
-- **Données cartographiques** : OpenStreetMap contributors
-- **Images** : Quartier de l'Ariane, Nice
-
 ---
 
 **Version** : 1.0  
