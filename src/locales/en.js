@@ -152,7 +152,6 @@ export default {
         description_placeholder: "Describe your tip or information in detail...",
         latitude_label: "Latitude",
         longitude_label: "Longitude",
-        // Ajoute d'autres champs ici si besoin
       },
       timeline: {
         location: "Location",
@@ -398,6 +397,62 @@ export default {
         cookies: "Cookie Management"
       },
       copyright: "© 2025 Nice Ville de Demain. All rights reserved."
+    },
+    // SignalementApp
+    signalement: {
+      create_tab: "New Tip",
+      my_reports_tab: "My Tips ({{count}})",
+      new_report: {
+        title: "Create a Tip",
+        description: "Please provide details about the tip or issue you'd like to share.",
+      },
+
+      form: {
+        category_label: "Category",
+        category_placeholder: "Choose a category",
+        description_label: "Description",
+        description_placeholder: "Provide a detailed description of the tip or information",
+        latitude_label: "Latitude",
+        longitude_label: "Longitude",
+        location_name_label: "Place Name",
+        location_name_placeholder: "e.g., Masséna Park, Rue des Lilas...",
+        get_location_button: "Use My Current Location",
+        image_label: "Image (optional)",
+        image_formats: "Accepted formats: JPG, PNG, GIF. Max size: 5MB.",
+        submitting_button: "Submitting...",
+        submit_button: "Submit Tip",
+      },
+
+      list: {
+        no_reports_title: "No Tips Yet",
+        no_reports_description: "You haven't shared any tips yet.",
+      },
+
+      status: {
+        pending: "Pending",
+        in_progress: "In Progress",
+        resolved: "Resolved",
+        rejected: "Rejected",
+      },
+
+      timeline: {
+        title: "Tip History",
+      },
+
+      categories: {
+        road_damage: "Road Damage",
+        street_light: "Street Lighting",
+        trash: "Trash",
+        vandalism: "Vandalism",
+        other: "Other",
+        itinerary: "Practical Routes",
+        event: "Local Events",
+        green_hub: "Green Hubs",
+        accessibility: "Accessibility",
+        local_tip: "General Tip",
+      },
+
+      image_alt: "Tip image",
     }
   }
 }

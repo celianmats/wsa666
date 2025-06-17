@@ -203,23 +203,19 @@ function App() {
                 </div>
               </div>
               <div className="flex items-center gap-4">
-                {user && (
-                  <span className="text-sm text-gray-600">
-                    Connecté en tant que {user.email}
-                  </span>
-                )}
                 <Button onClick={() => setCurrentPage('projets')} variant="outline">
                   <Calendar className="w-4 h-4 mr-2" />
-                  Projets
+                  {t('nav.projects')}
                 </Button>
                 <Button onClick={() => setCurrentPage('auth')} variant="outline">
                   <User className="w-4 h-4 mr-2" />
-                  {user ? 'Profil' : 'Se connecter'}
+                  {user ? t('nav.profile') : t('nav.login')}
                 </Button>
                 <Button onClick={() => setCurrentPage('home')} variant="outline">
                   <Home className="w-4 h-4 mr-2" />
-                  Accueil
+                  {t('nav.home')}
                 </Button>
+                <Button onClick={switchLang} variant="outline" className="w-15">🌐 {i18n.language === 'fr' ? 'FR' : 'EN'}</Button>
               </div>
             </div>
           </div>
@@ -386,7 +382,7 @@ function App() {
               <Button 
                 size="lg" 
                 className="bg-white text-blue-600 hover:bg-gray-100"
-                onClick={() => document.getElementById('projets').scrollIntoView({ behavior: 'smooth' })}
+                onClick={() => setCurrentPage('projets')}
               >
                 {t("home.hero.discover")}
               </Button>

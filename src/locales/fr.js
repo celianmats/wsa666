@@ -425,6 +425,62 @@ export default {
         cookies: "Gestion des cookies"
       },
       copyright: "© 2025 Nice Ville de Demain. Tous droits réservés."
+    },
+    // SignalementApp
+    signalement: {
+      create_tab: "Nouveau conseil",
+      my_reports_tab: "Mes conseils ({{count}})",
+      new_report: {
+        title: "Créer un conseil",
+        description: "Veuillez fournir les détails du problème que vous souhaitez signaler.",
+      },
+
+      form: {
+        category_label: "Catégorie",
+        category_placeholder: "Choisissez une catégorie",
+        description_label: "Description",
+        description_placeholder: "Renseignez une description détaillée du conseil ou de l'info",
+        latitude_label: "Latitude",
+        longitude_label: "Longitude",
+        location_name_label: "Nom du lieu",
+        location_name_placeholder: "Ex : Parc Masséna, rue des Lilas...",
+        get_location_button: "Utiliser ma position actuelle",
+        image_label: "Image (optionnel)",
+        image_formats: "Formats acceptés : JPG, PNG, GIF. Taille max : 5 Mo.",
+        submitting_button: "Envoi en cours...",
+        submit_button: "Soumettre le signalement",
+      },
+
+      list: {
+        no_reports_title: "Aucun conseil",
+        no_reports_description: "Vous n’avez pas encore effectué de conseil.",
+      },
+
+      status: {
+        pending: "En attente",
+        in_progress: "En cours",
+        resolved: "Résolu",
+        rejected: "Rejeté",
+      },
+
+      timeline: {
+        title: "Historique du signalement",
+      },
+
+      categories: {
+        road_damage: "Dommage sur la route",
+        street_light: "Éclairage public",
+        trash: "Déchets",
+        vandalism: "Vandalisme",
+        other: "Autre",
+        itinerary: "Itinéraires pratiques",
+        event: "Événements locaux",
+        green_hub: "Hubs verts",
+        accessibility: "Accessibilité",
+        local_tip: "Conseil général"
+      },
+
+      image_alt: "Image du signalement",
     }
   }
 }
