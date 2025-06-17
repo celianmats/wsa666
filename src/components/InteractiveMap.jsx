@@ -12,44 +12,44 @@ L.Icon.Default.mergeOptions({
 })
 
 // Coordonnées du quartier de l'Ariane à Nice
-const ARIANE_CENTER = [43.7102, 7.2620]
+const ARIANE_CENTER = [43.7, 7.256]
 
 // Points d'intérêt du quartier de l'Ariane
 const pointsInteret = [
   {
     id: 1,
-    nom: "Centre commercial L'Ariane",
-    position: [43.7095, 7.2615],
+    nom: "Centre commercial Jean Médecin",
+    position: [43.7034, 7.2659], // Centre-ville
     type: "commerce",
-    description: "Centre commercial principal du quartier"
+    description: "Centre commercial majeur dans le cœur de Nice"
   },
   {
     id: 2,
-    nom: "École primaire de l'Ariane",
-    position: [43.7110, 7.2625],
+    nom: "École primaire des Baumettes",
+    position: [43.6906, 7.2417], // Quartier Les Baumettes
     type: "education",
-    description: "École primaire du quartier"
+    description: "École primaire du quartier des Baumettes"
   },
   {
     id: 3,
-    nom: "Parc de l'Ariane",
-    position: [43.7085, 7.2635],
+    nom: "Parc Chambrun",
+    position: [43.7217, 7.2653], // Nord-Est de Nice
     type: "espaces_verts",
-    description: "Espace vert et de loisirs"
+    description: "Parc avec temple de l'amour, calme et verdoyant"
   },
   {
     id: 4,
-    nom: "Mairie de quartier",
-    position: [43.7115, 7.2610],
+    nom: "Mairie annexe de Fabron",
+    position: [43.6885, 7.2261], // Quartier Fabron
     type: "administration",
-    description: "Services administratifs de proximité"
+    description: "Services municipaux dans l'ouest de Nice"
   },
   {
     id: 5,
-    nom: "Centre de santé",
-    position: [43.7090, 7.2640],
+    nom: "Centre de santé Saint-Roch",
+    position: [43.7133, 7.2847], // Quartier Saint-Roch
     type: "sante",
-    description: "Centre médical de quartier"
+    description: "Centre médical desservant l'est de Nice"
   }
 ]
 
@@ -57,26 +57,27 @@ const pointsInteret = [
 const projetsRenovation = [
   {
     id: 1,
-    nom: "Rénovation Place Centrale",
-    position: [43.7100, 7.2620],
+    nom: "Rénovation Place Garibaldi",
+    position: [43.7012, 7.2761], // Quartier Garibaldi
     statut: "en_cours",
-    description: "Réaménagement de la place centrale avec espaces verts"
+    description: "Réaménagement de la place historique avec plus d’espaces verts"
   },
   {
     id: 2,
-    nom: "Nouveau complexe sportif",
-    position: [43.7080, 7.2630],
+    nom: "Nouveau complexe sportif Pasteur",
+    position: [43.7250, 7.2900], // Quartier Pasteur
     statut: "planifie",
-    description: "Construction d'un complexe sportif moderne"
+    description: "Construction d'un complexe sportif moderne et accessible"
   },
   {
     id: 3,
-    nom: "Résidence éco-responsable",
-    position: [43.7120, 7.2600],
+    nom: "Résidence éco-responsable Cimiez",
+    position: [43.7201, 7.2629], // Quartier Cimiez
     statut: "en_cours",
-    description: "Nouveaux logements à énergie positive"
+    description: "Logements durables dans un quartier résidentiel"
   }
 ]
+
 
 // Icônes personnalisées pour différents types de points
 const createCustomIcon = (color, symbol) => {

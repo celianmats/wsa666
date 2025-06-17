@@ -22,7 +22,7 @@ import {
   Home,
   UsersRound,
   Lightbulb,
-  Globe,
+  Globe, AlertCircle,
 } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
@@ -163,8 +163,8 @@ function App() {
                   <MapPin className="w-6 h-6 text-white" />
                 </div>
                 <div>
-                  <h1 className="text-xl font-bold text-gray-900">Nice Ville de Demain</h1>
-                  <p className="text-sm text-gray-600">Quartier de l'Ariane</p>
+                  <h1 className="text-xl font-bold text-gray-900">{t('home.title')}</h1>
+                  <p className="text-sm text-gray-600">Safe Place</p>
                 </div>
               </div>
               <Button onClick={() => setCurrentPage('home')} variant="outline">
@@ -196,7 +196,7 @@ function App() {
                 </div>
                 <div>
                   <h1 className="text-xl font-bold text-gray-900">Application de Signalement</h1>
-                  <p className="text-sm text-gray-600">Quartier de l'Ariane</p>
+                  <p className="text-sm text-gray-600">Safe Place</p>
                 </div>
               </div>
               <div className="flex items-center gap-4">
@@ -243,7 +243,7 @@ function App() {
                 </div>
                 <div>
                   <h1 className="text-xl font-bold text-gray-900">{t('reports.title')}</h1>
-                  <p className="text-sm text-gray-600">Quartier de l'Ariane</p>
+                  <p className="text-sm text-gray-600">Safe Place</p>
                 </div>
               </div>
               <div className="flex items-center gap-4">
@@ -283,7 +283,7 @@ function App() {
                 </div>
                 <div>
                   <h1 className="text-xl font-bold text-gray-900">{t('projects.title')}</h1>
-                  <p className="text-sm text-gray-600">Quartier de l'Ariane</p>
+                  <p className="text-sm text-gray-600">Safe Place</p>
                 </div>
               </div>
               <div className="flex items-center gap-4">
@@ -321,8 +321,8 @@ function App() {
                 <MapPin className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-gray-900">Nice Ville de Demain</h1>
-                <p className="text-sm text-gray-600">Quartier de l'Ariane</p>
+                <h1 className="text-xl font-bold text-gray-900">{t('home.title')}</h1>
+                <p className="text-sm text-gray-600">Safe Place</p>
               </div>
             </div>
             <div className="flex items-center gap-4">
@@ -383,16 +383,16 @@ function App() {
                 className="bg-white text-blue-600 hover:bg-gray-100"
                 onClick={() => document.getElementById('projets').scrollIntoView({ behavior: 'smooth' })}
               >
-                Découvrir les projets
+                {t("home.hero.discover")}
               </Button>
               <Button 
                 size="lg" 
                 variant="outline" 
-                className="border-white text-red-600 hover:bg-gray-100 hover:text-red-600"
+                className="border-white text-blue-600 hover:bg-gray-100 hover:text-blue-600"
                 onClick={() => setCurrentPage('signalement')}
               >
-                <AlertTriangle className="w-4 h-4 mr-2" />
-                Signaler un problème
+                <AlertCircle className="w-4 h-4 mr-2" />
+                {t("home.hero.report")}
               </Button>
             </motion.div>
           </div>
@@ -404,30 +404,28 @@ function App() {
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-3xl font-bold mb-6 text-gray-900">Notre Vision</h2>
+              <h2 className="text-3xl font-bold mb-6 text-gray-900">{t("home.vision.title")}</h2>
               <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-                Le quartier de l'Ariane se transforme pour devenir un modèle de ville durable et connectée. 
-                Notre mission est de créer un environnement urbain qui favorise l'inclusion sociale, 
-                la durabilité environnementale et l'innovation technologique au service des citoyens.
+                {t("home.vision.subtitle")}
               </p>
               <div className="grid grid-cols-3 gap-4">
                 <div className="text-center">
                   <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
                     <Users className="w-8 h-8 text-blue-600" />
                   </div>
-                  <h3 className="font-semibold text-gray-900">Inclusif</h3>
+                  <h3 className="font-semibold text-gray-900">{t("home.valueA")}</h3>
                 </div>
                 <div className="text-center">
                   <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
                     <Leaf className="w-8 h-8 text-green-600" />
                   </div>
-                  <h3 className="font-semibold text-gray-900">Durable</h3>
+                  <h3 className="font-semibold text-gray-900">{t("home.valueB")}</h3>
                 </div>
                 <div className="text-center">
                   <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-3">
                     <Wifi className="w-8 h-8 text-purple-600" />
                   </div>
-                  <h3 className="font-semibold text-gray-900">Connecté</h3>
+                  <h3 className="font-semibold text-gray-900">{t("home.valueC")}</h3>
                 </div>
               </div>
             </div>
@@ -451,9 +449,9 @@ function App() {
       <section id="projets" className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4 text-gray-900">Projets Citoyens</h2>
+            <h2 className="text-3xl font-bold mb-4 text-gray-900">{t("home.projects.title")}</h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Découvrez les initiatives qui transforment notre quartier en un espace de vie moderne et durable
+              {t("home.projects.subtitle")}
             </p>
           </div>
           
@@ -495,22 +493,22 @@ function App() {
       <section id="carte" className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4 text-gray-900">Carte Interactive</h2>
+            <h2 className="text-3xl font-bold mb-4 text-gray-900">{t('home.map.title')}</h2>
             <p className="text-lg text-gray-600 mb-6">
-              Explorez les différents points d'intérêt, projets et signalements du quartier de l'Ariane
+              {t('home.map.subtitle')}
             </p>
             <div className="flex flex-wrap justify-center gap-4 mb-8">
               <div className="flex items-center gap-2">
                 <div className="w-4 h-4 bg-blue-500 rounded-full"></div>
-                <span className="text-sm text-gray-600">Points d'intérêt</span>
+                <span className="text-sm text-gray-600">{t("home.map.interet")}</span>
               </div>
               <div className="flex items-center gap-2">
                 <div className="w-4 h-4 bg-yellow-500 rounded-full"></div>
-                <span className="text-sm text-gray-600">Projets en cours</span>
+                <span className="text-sm text-gray-600">{t("home.map.inprogress")}</span>
               </div>
               <div className="flex items-center gap-2">
                 <div className="w-4 h-4 bg-red-500 rounded-full"></div>
-                <span className="text-sm text-gray-600">Signalements</span>
+                <span className="text-sm text-gray-600">{t("home.map.tips")}</span>
               </div>
             </div>
           </div>
@@ -529,15 +527,15 @@ function App() {
               className="mr-4" 
               onClick={() => setCurrentPage('signalement')}
             >
-              <AlertTriangle className="w-4 h-4 mr-2" />
-              Signaler un problème
+              <AlertCircle className="w-4 h-4 mr-2" />
+              {t("home.hero.report")}
             </Button>
             <Button 
               variant="outline"
               onClick={() => window.open('https://www.openstreetmap.org/search?query=Nice%20Ariane', '_blank')}
             >
               <MapPin className="w-4 h-4 mr-2" />
-              Voir sur OpenStreetMap
+              {t("home.hero.viewMap")}
             </Button>
           </div>
         </div>
@@ -548,24 +546,24 @@ function App() {
         <div className="container mx-auto px-4">
           <div className="max-w-2xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold mb-4 text-gray-900">Participez au Projet</h2>
+              <h2 className="text-3xl font-bold mb-4 text-gray-900">{t('home.participate.title')}</h2>
               <p className="text-lg text-gray-600">
-                Inscrivez-vous pour recevoir les actualités et participer aux initiatives citoyennes
+                {t('home.participate.subtitle')}
               </p>
             </div>
             
             <Card>
               <CardHeader>
-                <CardTitle>Formulaire d'inscription</CardTitle>
+                <CardTitle>{t('home.participate.form.title')}</CardTitle>
                 <CardDescription>
-                  Rejoignez la communauté des citoyens engagés pour l'Ariane de demain
+                  {t('home.participate.form.subtitle')}
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
-                      <Label htmlFor="nom">Nom complet</Label>
+                      <Label htmlFor="nom">{t('home.participate.form.name')}</Label>
                       <Input
                         id="nom"
                         name="nom"
@@ -577,7 +575,7 @@ function App() {
                       />
                     </div>
                     <div>
-                      <Label htmlFor="email">Email</Label>
+                      <Label htmlFor="email">{t('home.participate.form.email')}</Label>
                       <Input
                         id="email"
                         name="email"
@@ -591,7 +589,7 @@ function App() {
                   </div>
                   
                   <div>
-                    <Label htmlFor="telephone">Téléphone (optionnel)</Label>
+                    <Label htmlFor="telephone">{t('home.participate.form.phone')}</Label>
                     <Input
                       id="telephone"
                       name="telephone"
@@ -603,7 +601,7 @@ function App() {
                   </div>
                   
                   <div>
-                    <Label htmlFor="message">Message / Suggestions</Label>
+                    <Label htmlFor="message">{t('home.participate.form.message')}</Label>
                     <Textarea
                       id="message"
                       name="message"
@@ -611,7 +609,7 @@ function App() {
                       onChange={handleInputChange}
                       rows={4}
                       className="mt-1"
-                      placeholder="Partagez vos idées pour améliorer le quartier..."
+                      placeholder={t('home.participate.form.placeholder')}
                     />
                   </div>
                   
@@ -625,12 +623,12 @@ function App() {
                       className="rounded"
                     />
                     <Label htmlFor="newsletter" className="text-sm">
-                      Je souhaite recevoir la newsletter du projet
+                      {t('home.participate.form.newsletter')}
                     </Label>
                   </div>
                   
                   <Button type="submit" className="w-full">
-                    S'inscrire au projet
+                    {t('home.participate.form.submit')}
                   </Button>
                 </form>
               </CardContent>
@@ -648,44 +646,44 @@ function App() {
                 <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-green-600 rounded-lg flex items-center justify-center">
                   <MapPin className="w-5 h-5 text-white" />
                 </div>
-                <h3 className="text-lg font-semibold">Nice Ville de Demain</h3>
+                <h3 className="text-lg font-semibold">{t('home.title')}</h3>
               </div>
               <p className="text-gray-400 mb-4">
-                Transformons ensemble le quartier de l'Ariane en un modèle de ville durable et connectée.
+                {t('footer.subtitle')}
               </p>
             </div>
             
             <div>
-              <h4 className="text-lg font-semibold mb-4">Contact</h4>
+              <h4 className="text-lg font-semibold mb-4">{t('footer.contact.title')}</h4>
               <div className="space-y-2 text-gray-400">
                 <div className="flex items-center">
                   <Mail className="w-4 h-4 mr-2" />
-                  <span>contact@nice-ville-demain.fr</span>
+                  <span>{t('footer.contact.email')}</span>
                 </div>
                 <div className="flex items-center">
                   <Phone className="w-4 h-4 mr-2" />
-                  <span>04 XX XX XX XX</span>
+                  <span>{t('footer.contact.phone')}</span>
                 </div>
                 <div className="flex items-center">
                   <MapPin className="w-4 h-4 mr-2" />
-                  <span>Quartier de l'Ariane, Nice</span>
+                  <span>{t('footer.contact.address')}</span>
                 </div>
               </div>
             </div>
             
             <div>
-              <h4 className="text-lg font-semibold mb-4">Liens utiles</h4>
+              <h4 className="text-lg font-semibold mb-4">{t('footer.links.title')}</h4>
               <ul className="space-y-2 text-gray-400">
-                <li><a href="#" className="hover:text-white transition-colors">Ville de Nice</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Métropole Nice Côte d'Azur</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">ANRU</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Mentions légales</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">{t('footer.links.municipality')}</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">{t('footer.links.metropolis')}</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">{t('footer.links.anru')}</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">{t('footer.links.legals')}</a></li>
               </ul>
             </div>
           </div>
           
           <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2024 Nice Ville de Demain - Quartier de l'Ariane. Tous droits réservés.</p>
+            <p>{t('footer.copyright')}</p>
           </div>
         </div>
       </footer>

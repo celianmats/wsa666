@@ -1,6 +1,6 @@
-# Nice Ville de Demain - Quartier de l'Ariane
+# Nice Ville de Demain - Safe Place
 
-Application web complète pour améliorer l'inclusivité, la durabilité et la connectivité du quartier de l'Ariane à Nice.
+Application web complète pour améliorer l'inclusivité, la durabilité et la connectivité urbaine de la ville de Nice.
 
 ## 🎯 Objectifs du projet
 
