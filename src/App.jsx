@@ -21,7 +21,7 @@ import {
     Home,
     UsersRound,
     Lightbulb,
-    AlertCircle,
+    AlertCircle, Briefcase, BadgePlus,
 } from 'lucide-react'
 import {motion} from 'framer-motion'
 import {useTranslation} from 'react-i18next'
@@ -36,7 +36,7 @@ import './i18n'
 // Import des images
 import arianeQuartier from './assets/ariane-quartier.jpg'
 import arianeRenovation from './assets/ariane-renovation.jpg'
-import smartCityHero from './assets/smart-city-hero.jpeg'
+import plage from './assets/plage.png'
 
 function App() {
     const {t, i18n} = useTranslation()
@@ -142,33 +142,61 @@ function App() {
             <div className="container mx-auto px-4 py-4">
                 <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-3">
-                        <div
-                            className="w-10 h-10 bg-gradient-to-br from-blue-600 to-green-600 rounded-lg flex items-center justify-center">
-                            <MapPin className="w-6 h-6 text-white"/>
-                        </div>
-                        <div>
-                            <h1 className="text-xl font-bold text-gray-900">{t('home.title')}</h1>
-                            <p className="text-sm text-gray-600">Safe Place</p>
-                        </div>
+                        <button onClick={() => setCurrentPage('home')} className="cursor-pointer">
+                            <div
+                                className="flex md:hidden w-10 h-10 bg-gradient-to-br from-blue-600 to-green-600 rounded-lg items-center justify-center">
+                                <MapPin className="w-6 h-6 text-white"/>
+                            </div>
+                            <div className="hidden md:flex">
+                                <h1 className="text-xl font-bold bg-gradient-to-r from-[#40A461] to-[#3DC8E4] hover:from-[#59E286] hover:to-[#258295] transition-colors duration-300
+ inline-block text-transparent bg-clip-text">{t('home.title')}</h1>
+                            </div>
+                        </button>
                     </div>
                     <div className="flex items-center gap-4">
-                        <nav className="hidden md:flex space-x-6">
-                            <button onClick={() => setCurrentPage('home')} variant="outline"
-                                    className="text-gray-700 hover:text-blue-600 transition-colors flex cursor-pointer
-                                        items-center"><Home
-                                className="w-4 h-4 mr-1"/>{t('nav.home')}</button>
-                            <button onClick={() => setCurrentPage('signalements')}
-                                    className="text-gray-700 hover:text-blue-600 cursor-pointer transition-colors flex items-center">
-                                <UsersRound className="w-4 h-4 mr-1"/>{t('nav.reports')}</button>
+                        <nav className="flex space-x-6">
+                            {/* Desktop only */}
+                            <button
+                                onClick={() => setCurrentPage('signalements')}
+                                variant="ghost"
+                                className="flex items-center gap-2 md:flex hidden cursor-pointer hover:text-gray-600">
+                                <Briefcase className="w-4 h-4 mr-1"/>
+                                <p>{t('nav.reports')}</p>
+                            </button>
+
                             <button onClick={() => setCurrentPage('projets')}
-                                    className="text-gray-700 hover:text-blue-600 cursor-pointer transition-colors flex items-center">
-                                <Lightbulb className="w-4 h-4 mr-1"/>{t('nav.projects')}</button>
+                                    className="flex items-center gap-2 md:flex hidden cursor-pointer hover:text-gray-600">
+                                <Lightbulb className="w-4 h-4 md:mr-1"/>
+                                <p className="hidden md:flex">{t('nav.projects')}</p>
+                            </button>
                         </nav>
                     </div>
                     <div className="flex items-center gap-4">
+                        {/* Mobile only */}
+                        <Button
+                            onClick={() => setCurrentPage('signalements')}
+                            variant="outline"
+                            className="md:hidden cursor-pointer"
+                        >
+                            <Briefcase className="w-4 h-4"/>
+                        </Button>
+                        <Button onClick={() => setCurrentPage('projets')} variant="outline"
+                                className="md:hidden cursor-pointer">
+                            <Lightbulb className="w-4 h-4 md:mr-1"/>
+                        </Button>
+
+                        {/* User only */}
+                        {user && (
+                            <Button onClick={() => setCurrentPage('signalement')} variant="outline">
+                                <BadgePlus className="w-4 h-4 md:mr-2"/>
+                                <p className="hidden md:flex">{t('nav.tips')}</p>
+                            </Button>
+                        )}
+
+                        {/* Every time */}
                         <Button onClick={() => setCurrentPage('auth')} variant="outline">
-                            <User className="w-4 h-4 mr-2"/>
-                            {user ? user.email : t('nav.login')}
+                            <User className="w-4 h-4 md:mr-2"/>
+                            <p className="hidden md:flex">{user ? user.displayName : t('nav.login')}</p>
                         </Button>
                         <Button onClick={switchLang} variant="outline"
                                 className="w-15">🌐 {i18n.language === 'fr' ? 'FR' : 'EN'}</Button>
@@ -248,14 +276,14 @@ function App() {
             <Header/>
 
             {/* Section Hero */}
-            <section id="accueil" className="relative py-20 overflow-hidden">
+            <section id="accueil" className="relative py-32 overflow-hidden">
                 <div className="absolute inset-0 z-0">
                     <img
-                        src={smartCityHero}
+                        src={plage}
                         alt="Ville connectée"
-                        className="w-full h-full object-cover opacity-20"
+                        className="w-full h-full object-cover brightness-30"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-r from-blue-600/80 to-green-600/80"></div>
+                    <div className="absolute inset-0 "></div>
                 </div>
 
                 <div className="container mx-auto px-4 relative z-10">
@@ -264,10 +292,18 @@ function App() {
                             initial={{opacity: 0, y: 30}}
                             animate={{opacity: 1, y: 0}}
                             transition={{duration: 0.8}}
-                            className="text-5xl md:text-6xl font-bold mb-6"
+                            className="text-5xl md:text-[156px] font-bold mb-2"
                         >
-                            {t('home.title')}
+                            {t('home.title1')}
                         </motion.h1>
+                        <motion.h2
+                            initial={{opacity: 0, y: 30}}
+                            animate={{opacity: 1, y: 0}}
+                            transition={{duration: 0.8}}
+                            className="text-3xl mb-6"
+                        >
+                            {t('home.title2')}
+                        </motion.h2>
                         <motion.p
                             initial={{opacity: 0, y: 30}}
                             animate={{opacity: 1, y: 0}}
@@ -284,15 +320,15 @@ function App() {
                         >
                             <Button
                                 size="lg"
-                                className="bg-white text-blue-600 hover:bg-gray-100"
+                                className="bg-white text-black hover:bg-gray-100"
                                 onClick={() => setCurrentPage('projets')}
                             >
+                                <Lightbulb className="w-4 h-4 mr-2"/>
                                 {t("home.hero.discover")}
                             </Button>
                             <Button
                                 size="lg"
-                                variant="outline"
-                                className="border-white text-blue-600 hover:bg-gray-100 hover:text-blue-600"
+                                className="bg-[#2E599A] hover:bg-[#223552]"
                                 onClick={() => setCurrentPage('signalement')}
                             >
                                 <AlertCircle className="w-4 h-4 mr-2"/>
@@ -304,39 +340,39 @@ function App() {
             </section>
 
             {/* Section Vision */}
-            <section className="py-16 bg-white">
+            <section className="py-16 md:py-32 bg-white">
                 <div className="container mx-auto px-4">
-                    <div className="grid md:grid-cols-2 gap-12 items-center">
-                        <div>
-                            <h2 className="text-3xl font-bold mb-6 text-gray-900">{t("home.vision.title")}</h2>
+                    <div className="flex flex-col lg:grid lg:grid-cols-2 gap-12 items-center">
+                        <div className="text-center md:mx-24">
+                            <h2 className="text-3xl font-bold mb-6 bg-gradient-to-r from-[#40A461] to-[#3DC8E4] inline-block text-transparent bg-clip-text">{t("home.vision.title")}</h2>
                             <p className="text-lg text-gray-700 mb-6 leading-relaxed">
                                 {t("home.vision.subtitle")}
                             </p>
-                            <div className="grid grid-cols-3 gap-4">
+                            <div className="grid grid-cols-3 gap-4 mt-8">
                                 <div className="text-center">
                                     <div
-                                        className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                                        className="w-16 h-16 bg-blue-100 rounded-md flex items-center justify-center mx-auto mb-3">
                                         <Users className="w-8 h-8 text-blue-600"/>
                                     </div>
                                     <h3 className="font-semibold text-gray-900">{t("home.valueA")}</h3>
                                 </div>
                                 <div className="text-center">
                                     <div
-                                        className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                                        className="w-16 h-16 bg-green-100 rounded-md flex items-center justify-center mx-auto mb-3">
                                         <Leaf className="w-8 h-8 text-green-600"/>
                                     </div>
                                     <h3 className="font-semibold text-gray-900">{t("home.valueB")}</h3>
                                 </div>
                                 <div className="text-center">
                                     <div
-                                        className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                                        className="w-16 h-16 bg-purple-100 rounded-md flex items-center justify-center mx-auto mb-3">
                                         <Wifi className="w-8 h-8 text-purple-600"/>
                                     </div>
                                     <h3 className="font-semibold text-gray-900">{t("home.valueC")}</h3>
                                 </div>
                             </div>
                         </div>
-                        <div className="grid grid-cols-2 gap-4">
+                        <div className="flex flex-col md:grid grid-cols-2 gap-4">
                             <img
                                 src={arianeQuartier}
                                 alt="Quartier de l'Ariane"
@@ -353,10 +389,10 @@ function App() {
             </section>
 
             {/* Section Projets */}
-            <section id="projets" className="py-16 bg-gray-50">
+            <section id="projets" className="py-16 md:py-32 bg-gray-50">
                 <div className="container mx-auto px-4">
                     <div className="text-center mb-12">
-                        <h2 className="text-3xl font-bold mb-4 text-gray-900">{t("home.projects.title")}</h2>
+                        <h2 className="text-3xl font-bold mb-4 bg-gradient-to-r from-[#40A461] to-[#3DC8E4] inline-block text-transparent bg-clip-text">{t("home.projects.title")}</h2>
                         <p className="text-lg text-gray-600 max-w-2xl mx-auto">
                             {t("home.projects.subtitle")}
                         </p>
@@ -397,10 +433,10 @@ function App() {
             </section>
 
             {/* Section Carte Interactive */}
-            <section id="carte" className="py-16 bg-white">
+            <section id="carte" className="py-16 md:py-32 bg-white">
                 <div className="container mx-auto px-4">
                     <div className="text-center mb-12">
-                        <h2 className="text-3xl font-bold mb-4 text-gray-900">{t('home.map.title')}</h2>
+                        <h2 className="text-3xl font-bold mb-4 bg-gradient-to-r from-[#40A461] to-[#3DC8E4] inline-block text-transparent bg-clip-text">{t('home.map.title')}</h2>
                         <p className="text-lg text-gray-600 mb-6">
                             {t('home.map.subtitle')}
                         </p>
@@ -431,7 +467,7 @@ function App() {
 
                     <div className="text-center mt-8">
                         <Button
-                            className="mr-4"
+                            className="mr-4 bg-[#2E599A] hover:bg-[#223552]"
                             onClick={() => setCurrentPage('signalement')}
                         >
                             <AlertCircle className="w-4 h-4 mr-2"/>
@@ -449,11 +485,11 @@ function App() {
             </section>
 
             {/* Section Formulaire */}
-            <section id="contact" className="py-16 bg-gradient-to-br from-blue-50 to-green-50">
+            <section id="contact" className="py-16 md:py-32 bg-gradient-to-br from-blue-50 to-green-50">
                 <div className="container mx-auto px-4">
                     <div className="max-w-2xl mx-auto">
                         <div className="text-center mb-12">
-                            <h2 className="text-3xl font-bold mb-4 text-gray-900">{t('home.participate.title')}</h2>
+                            <h2 className="text-3xl font-bold mb-4 bg-gradient-to-r from-[#40A461] to-[#3DC8E4] inline-block text-transparent bg-clip-text">{t('home.participate.title')}</h2>
                             <p className="text-lg text-gray-600">
                                 {t('home.participate.subtitle')}
                             </p>
@@ -534,7 +570,7 @@ function App() {
                                         </Label>
                                     </div>
 
-                                    <Button type="submit" className="w-full">
+                                    <Button type="submit" className="w-full bg-[#2E599A] hover:bg-[#223552]">
                                         {t('home.participate.form.submit')}
                                     </Button>
                                 </form>
