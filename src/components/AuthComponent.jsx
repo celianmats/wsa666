@@ -1,27 +1,78 @@
-import { useState } from 'react'
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth'
-import { doc, setDoc } from 'firebase/firestore'
+import { useState, useEffect } from 'react'
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile } from 'firebase/auth'
+import { doc, setDoc, getDoc } from 'firebase/firestore'
 import { auth, db } from '../lib/firebase'
 import { Button } from '@/components/ui/button.jsx'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card.jsx'
 import { Input } from '@/components/ui/input.jsx'
 import { Label } from '@/components/ui/label.jsx'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs.jsx'
-import { User, Mail, Lock, LogOut } from 'lucide-react'
+import { User, Mail, Lock, LogOut, Edit } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 
 export default function AuthComponent({ user, onAuthChange }) {
   const { t } = useTranslation()
   const [loading, setLoading] = useState(false)
+  const [userProfile, setUserProfile] = useState(null)
+  const [editingProfile, setEditingProfile] = useState(false)
   const [formData, setFormData] = useState({
     email: '',
     password: '',
     displayName: ''
   })
+  const [profileData, setProfileData] = useState({
+    displayName: ''
+  })
+
+  // Charger le profil utilisateur depuis Firestore
+  useEffect(() => {
+    const loadUserProfile = async () => {
+      if (user) {
+        try {
+          const userDoc = await getDoc(doc(db, 'users', user.uid))
+          if (userDoc.exists()) {
+            const userData = userDoc.data()
+            setUserProfile(userData)
+            setProfileData({
+              displayName: userData.displayName || ''
+            })
+          } else {
+            // Si le document n'existe pas, le créer avec les données de base
+            const defaultProfile = {
+              uid: user.uid,
+              email: user.email,
+              displayName: user.displayName || user.email.split('@')[0],
+              createdAt: new Date(),
+            }
+            await setDoc(doc(db, 'users', user.uid), defaultProfile)
+            setUserProfile(defaultProfile)
+            setProfileData({
+              displayName: defaultProfile.displayName
+            })
+          }
+        } catch (error) {
+          console.error('Erreur lors du chargement du profil:', error)
+        }
+      } else {
+        setUserProfile(null)
+        setProfileData({ displayName: '' })
+      }
+    }
+
+    loadUserProfile()
+  }, [user])
 
   const handleInputChange = (e) => {
     const { name, value } = e.target
     setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }))
+  }
+
+  const handleProfileChange = (e) => {
+    const { name, value } = e.target
+    setProfileData(prev => ({
       ...prev,
       [name]: value
     }))
@@ -35,13 +86,26 @@ export default function AuthComponent({ user, onAuthChange }) {
       const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password)
       const user = userCredential.user
 
-      await setDoc(doc(db, 'users', user.uid), {
+      const displayName = formData.displayName || user.email.split('@')[0]
+
+      // Mettre à jour le profil Firebase Auth
+      await updateProfile(user, {
+        displayName: displayName
+      })
+
+      // Créer le document utilisateur dans Firestore
+      const userProfile = {
         uid: user.uid,
         email: user.email,
-        displayName: formData.displayName || user.email.split('@')[0],
+        displayName: displayName,
         createdAt: new Date(),
-        role: 'citoyen'
-      })
+        updatedAt: new Date(),
+      }
+
+      await setDoc(doc(db, 'users', user.uid), userProfile)
+
+      // Recharger l'utilisateur pour obtenir les données mises à jour
+      await user.reload()
 
       onAuthChange(user)
       alert(t('auth.register.success'))
@@ -66,6 +130,40 @@ export default function AuthComponent({ user, onAuthChange }) {
       console.error('Erreur lors de la connexion:', error)
       const errorMsg = mapAuthError(error.code)
       alert(t(errorMsg))
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleUpdateProfile = async (e) => {
+    e.preventDefault()
+    setLoading(true)
+
+    try {
+      // Mettre à jour le profil Firebase Auth
+      await updateProfile(user, {
+        displayName: profileData.displayName
+      })
+
+      // Mettre à jour le document Firestore
+      await setDoc(doc(db, 'users', user.uid), {
+        ...userProfile,
+        displayName: profileData.displayName,
+        updatedAt: new Date()
+      }, { merge: true })
+
+      // Recharger l'utilisateur et le profil
+      await user.reload()
+      setUserProfile(prev => ({
+        ...prev,
+        displayName: profileData.displayName
+      }))
+
+      setEditingProfile(false)
+      alert(t('auth.profile.updateSuccess'))
+    } catch (error) {
+      console.error('Erreur lors de la mise à jour du profil:', error)
+      alert(t('auth.profile.updateError'))
     } finally {
       setLoading(false)
     }
@@ -99,6 +197,11 @@ export default function AuthComponent({ user, onAuthChange }) {
     }
   }
 
+  // Fonction utilitaire pour obtenir le nom d'affichage
+  const getDisplayName = () => {
+    return userProfile?.displayName || user?.displayName || user?.email?.split('@')[0] || t('auth.register.noDisplayName')
+  }
+
   if (user) {
     return (
         <Card className="w-full max-w-md mx-auto">
@@ -113,10 +216,57 @@ export default function AuthComponent({ user, onAuthChange }) {
               <Label>{t('auth.login.email')}</Label>
               <p className="text-sm text-gray-600">{user.email}</p>
             </div>
-            <div>
-              <Label>{t('auth.register.displayName')}</Label>
-              <p className="text-sm text-gray-600">{user.displayName || t('auth.register.noDisplayName')}</p>
-            </div>
+
+            {editingProfile ? (
+                <form onSubmit={handleUpdateProfile} className="space-y-4">
+                  <div>
+                    <Label htmlFor="edit-displayName">{t('auth.register.displayName')}</Label>
+                    <Input
+                        id="edit-displayName"
+                        name="displayName"
+                        type="text"
+                        value={profileData.displayName}
+                        onChange={handleProfileChange}
+                        placeholder={t('auth.register.displayName')}
+                        required
+                    />
+                  </div>
+                  <div className="flex gap-2">
+                    <Button type="submit" disabled={loading} className="flex-1">
+                      {loading ? t('auth.profile.updating') : t('auth.profile.save')}
+                    </Button>
+                    <Button
+                        type="button"
+                        variant="outline"
+                        onClick={() => {
+                          setEditingProfile(false)
+                          setProfileData({
+                            displayName: userProfile?.displayName || ''
+                          })
+                        }}
+                        className="flex-1"
+                    >
+                      {t('auth.profile.cancel')}
+                    </Button>
+                  </div>
+                </form>
+            ) : (
+                <div>
+                  <div className="flex items-center justify-between">
+                    <Label>{t('auth.register.displayName')}</Label>
+                    <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => setEditingProfile(true)}
+                        className="h-auto p-1"
+                    >
+                      <Edit className="w-4 h-4" />
+                    </Button>
+                  </div>
+                  <p className="text-sm text-gray-600">{getDisplayName()}</p>
+                </div>
+            )}
+
             <Button onClick={handleSignOut} variant="outline" className="w-full">
               <LogOut className="w-4 h-4 mr-2" />
               {t('auth.logout.button')}
@@ -195,6 +345,7 @@ export default function AuthComponent({ user, onAuthChange }) {
                         onChange={handleInputChange}
                         className="pl-10"
                         placeholder={t('auth.register.displayName')}
+                        required
                     />
                   </div>
                 </div>

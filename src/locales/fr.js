@@ -75,6 +75,10 @@ export default {
     auth: {
       title: "Authentification",
       description: "Connectez-vous ou créez un compte pour signaler des problèmes",
+      profile: {
+        save: "Enregistrer les modifications",
+        cancel: "Annuler",
+      },
       login: {
         title: "Connexion",
         email: "Adresse email",
