@@ -116,6 +116,13 @@ export default {
                 wrongPassword: "Incorrect password",
                 emailInUse: "This email address is already in use",
                 generic: "An error occurred. Please try again."
+            },
+            tabs:{
+                profile:"Profile",
+                tips: {
+                    title: "My tips",
+                    subtitle: "Your tips shapes the city",
+                },
             }
         },
 
