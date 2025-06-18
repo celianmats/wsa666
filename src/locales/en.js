@@ -78,6 +78,8 @@ export default {
       profile: {
         save: "Save Changes",
         cancel: "Cancel",
+        updating: "Updating profile...",
+        updateSuccess: "Profile updated successfully!",
       },
       login: {
         title: "Sign In",
