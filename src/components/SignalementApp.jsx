@@ -292,10 +292,10 @@ export default function SignalementApp({ user, onNavigate }) {
               </CardHeader>
               <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-4">
-                  <div>
-                    <Label htmlFor="category">{t("signalement.form.category_label")}</Label>
+                  <div className="flex flex-col gap-4">
+                    <Label>{t("signalement.form.category_label")}</Label>
                     <Select value={formData.category} onValueChange={handleCategoryChange}>
-                      <SelectTrigger>
+                      <SelectTrigger className="w-full">
                         <SelectValue placeholder={t("signalement.form.category_placeholder")} />
                       </SelectTrigger>
                       <SelectContent>
@@ -308,7 +308,7 @@ export default function SignalementApp({ user, onNavigate }) {
                     </Select>
                   </div>
 
-                  <div>
+                  <div className="flex flex-col gap-4">
                     <Label htmlFor="description">{t("signalement.form.description_label")}</Label>
                     <Textarea
                         id="description"
@@ -322,7 +322,7 @@ export default function SignalementApp({ user, onNavigate }) {
                   </div>
 
                   <div className="grid md:grid-cols-2 gap-4">
-                    <div>
+                    <div className="flex flex-col gap-4">
                       <Label htmlFor="latitude">{t("signalement.form.latitude_label")}</Label>
                       <Input
                           id="latitude"
@@ -335,7 +335,7 @@ export default function SignalementApp({ user, onNavigate }) {
                           required
                       />
                     </div>
-                    <div>
+                    <div className="flex flex-col gap-4">
                       <Label htmlFor="longitude">{t("signalement.form.longitude_label")}</Label>
                       <Input
                           id="longitude"
@@ -350,7 +350,7 @@ export default function SignalementApp({ user, onNavigate }) {
                     </div>
                   </div>
 
-                  <div>
+                  <div className="flex flex-col gap-4">
                     <Label htmlFor="locationName">{t("signalement.form.location_name_label")}</Label>
                     <Input
                         id="locationName"
@@ -367,7 +367,7 @@ export default function SignalementApp({ user, onNavigate }) {
                     {t("signalement.form.get_location_button")}
                   </Button>
 
-                  <div>
+                  <div className="flex flex-col gap-4">
                     <Label htmlFor="image">{t("signalement.form.image_label")}</Label>
                     <Input
                         id="image"
