@@ -7,12 +7,14 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card'
 import { Badge } from './ui/badge'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs'
+import {useTranslation} from "react-i18next";
 
 const ProjetsCitoyens = () => {
   const [searchTerm, setSearchTerm] = useState('')
   const [statusFilter, setStatusFilter] = useState('tous')
   const [categoryFilter, setCategoryFilter] = useState('toutes')
   const [viewMode, setViewMode] = useState('grille')
+  const { t } = useTranslation()
 
   // Données des projets citoyens étendues
   const projets = [
@@ -170,20 +172,20 @@ const ProjetsCitoyens = () => {
   ]
 
   const categories = [
-    { value: 'toutes', label: 'Toutes les catégories' },
-    { value: 'environnement', label: 'Environnement' },
-    { value: 'technologie', label: 'Technologie' },
-    { value: 'securite', label: 'Sécurité' },
-    { value: 'social', label: 'Social' },
-    { value: 'transport', label: 'Transport' }
+    { value: 'toutes', label: t("signalements.filters.allCategories") },
+    { value: 'environnement', label: t("signalements.categories.environnement") },
+    { value: 'technologie', label: t("signalements.categories.technologie") },
+    { value: 'securite', label: t("signalements.categories.securite") },
+    { value: 'social', label: t("signalements.categories.social") },
+    { value: 'transport', label: t("signalements.categories.transport") }
   ]
 
   const statuts = [
-    { value: 'tous', label: 'Tous les statuts' },
-    { value: 'en_cours', label: 'En cours' },
-    { value: 'planifie', label: 'Planifié' },
-    { value: 'a_venir', label: 'À venir' },
-    { value: 'en_preparation', label: 'En préparation' }
+    { value: 'tous', label: t("signalements.filters.allStatuses") },
+    { value: 'en_cours', label: t("signalements.statuses.pending") },
+    { value: 'planifie', label: t("signalements.statuses.planned") },
+    { value: 'a_venir', label: t("signalements.statuses.incoming") },
+    { value: 'en_preparation', label: t("signalements.statuses.inprogress") }
   ]
 
   const getStatusBadge = (statut) => {
@@ -254,25 +256,10 @@ const ProjetsCitoyens = () => {
           </p>
           
           <div className="space-y-3">
-            <div className="flex items-center justify-between text-sm">
-              <span className="text-gray-600">Avancement</span>
-              <span className="font-medium">{projet.avancement}%</span>
-            </div>
-            <div className="w-full bg-gray-200 rounded-full h-2">
-              <div 
-                className="bg-blue-600 h-2 rounded-full transition-all duration-300"
-                style={{ width: `${projet.avancement}%` }}
-              />
-            </div>
-            
-            <div className="grid grid-cols-2 gap-4 text-sm">
-              <div className="flex items-center gap-1">
-                <Users className="w-4 h-4 text-gray-500" />
-                <span>{projet.participants} participants</span>
-              </div>
+            <div className="grid grid-cols-1 gap-4 text-sm">
               <div className="flex items-center gap-1">
                 <MapPin className="w-4 h-4 text-gray-500" />
-                <span className="truncate">{projet.localisation}</span>
+                <span>{projet.localisation}</span>
               </div>
             </div>
             
@@ -376,11 +363,11 @@ const ProjetsCitoyens = () => {
             className="text-center"
           >
             <h1 className="text-4xl font-bold text-gray-900 mb-4">
-              Projets citoyens
+              {t("projects.title")}
             </h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Découvrez tous les projets qui transforment la ville de Nice ! <br />
-              Suivez leur avancement et participez à leur réalisation.
+              {t("projects.subtitle")}<br />
+              {t("projects.subtitle2")}
             </p>
           </motion.div>
         </div>
@@ -398,7 +385,7 @@ const ProjetsCitoyens = () => {
             <div className="flex-1 relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
               <Input
-                placeholder="Rechercher un projet..."
+                placeholder={t("projects.search")}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="pl-10"
@@ -408,7 +395,7 @@ const ProjetsCitoyens = () => {
             <div className="flex gap-4 items-center">
               <Select value={statusFilter} onValueChange={setStatusFilter}>
                 <SelectTrigger className="w-48">
-                  <SelectValue placeholder="Tous les statuts" />
+                  <SelectValue placeholder={t("projects.allstatuses")} />
                 </SelectTrigger>
                 <SelectContent>
                   {statuts.map(statut => (
@@ -421,7 +408,7 @@ const ProjetsCitoyens = () => {
               
               <Select value={categoryFilter} onValueChange={setCategoryFilter}>
                 <SelectTrigger className="w-48">
-                  <SelectValue placeholder="Toutes les catégories" />
+                  <SelectValue placeholder={t("projects.allCategories")} />
                 </SelectTrigger>
                 <SelectContent>
                   {categories.map(category => (
@@ -440,7 +427,7 @@ const ProjetsCitoyens = () => {
                   className="flex items-center gap-2"
                 >
                   <Grid className="w-4 h-4" />
-                  Grille
+                  {t("projects.filters.grid_view")}
                 </Button>
                 <Button
                   variant={viewMode === 'timeline' ? 'default' : 'ghost'}

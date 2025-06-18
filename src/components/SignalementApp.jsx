@@ -494,12 +494,12 @@ export default function SignalementApp({ user, onNavigate }) {
                                         {isUpdating === 'validating' ? (
                                             <>
                                               <Upload className="w-4 h-4 mr-2 animate-spin" />
-                                              Validation...
+                                              {t("signalement.timeline.validation")}
                                             </>
                                         ) : (
                                             <>
                                               <CheckCircle className="w-4 h-4 mr-2" />
-                                              Valider et publier
+                                              {t("signalement.status.validationpublish")}
                                             </>
                                         )}
                                       </Button>
@@ -512,12 +512,12 @@ export default function SignalementApp({ user, onNavigate }) {
                                         {isUpdating === 'archiving' ? (
                                             <>
                                               <Upload className="w-4 h-4 mr-2 animate-spin" />
-                                              Archivage...
+                                              {t("signalement.status.archiveloading")}
                                             </>
                                         ) : (
                                             <>
                                               <Archive className="w-4 h-4 mr-2" />
-                                              Archiver
+                                              {t("signalement.status.archiver")}
                                             </>
                                         )}
                                       </Button>
@@ -528,7 +528,7 @@ export default function SignalementApp({ user, onNavigate }) {
                                     <div className="flex items-center gap-2">
                                       <Badge variant="outline" className="text-green-700 border-green-300">
                                         <Eye className="w-3 h-3 mr-1" />
-                                        Visible publiquement
+                                        {t("signalement.status.visible")}
                                       </Badge>
                                       <Button
                                           onClick={() => archiveSignalement(signalement.id)}
@@ -539,12 +539,12 @@ export default function SignalementApp({ user, onNavigate }) {
                                         {isUpdating === 'archiving' ? (
                                             <>
                                               <Upload className="w-4 h-4 mr-2 animate-spin" />
-                                              Archivage...
+                                              {t("signalement.status.archiveloading")}
                                             </>
                                         ) : (
                                             <>
                                               <Archive className="w-4 h-4 mr-2" />
-                                              Archiver
+                                              {t("signalement.status.archiver")}
                                             </>
                                         )}
                                       </Button>
@@ -555,7 +555,7 @@ export default function SignalementApp({ user, onNavigate }) {
                                     <div className="flex items-center gap-2">
                                       <Badge variant="outline" className="text-gray-600 border-gray-300">
                                         <Archive className="w-3 h-3 mr-1" />
-                                        Archivé
+                                        {t("status.archived")}
                                       </Badge>
                                       <Button
                                           onClick={() => validateSignalement(signalement.id)}
@@ -566,12 +566,12 @@ export default function SignalementApp({ user, onNavigate }) {
                                         {isUpdating === 'validating' ? (
                                             <>
                                               <Upload className="w-4 h-4 mr-2 animate-spin" />
-                                              Restauration...
+                                              {t("signalement.status.restore")}
                                             </>
                                         ) : (
                                             <>
                                               <CheckCircle className="w-4 h-4 mr-2" />
-                                              Republier
+                                              {t("signalement.status.republish")}
                                             </>
                                         )}
                                       </Button>
