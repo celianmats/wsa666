@@ -141,7 +141,7 @@ export default function AuthComponent({ user, onAuthChange }) {
 
             <TabsContent value="signin">
               <form onSubmit={handleSignIn} className="space-y-4">
-                <div>
+                <div className="flex flex-col gap-2">
                   <Label htmlFor="signin-email">{t('auth.login.email')}</Label>
                   <div className="relative">
                     <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
@@ -158,7 +158,7 @@ export default function AuthComponent({ user, onAuthChange }) {
                   </div>
                 </div>
 
-                <div>
+                <div className="flex flex-col gap-2">
                   <Label htmlFor="signin-password">{t('auth.login.password')}</Label>
                   <div className="relative">
                     <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
@@ -183,7 +183,7 @@ export default function AuthComponent({ user, onAuthChange }) {
 
             <TabsContent value="signup">
               <form onSubmit={handleSignUp} className="space-y-4">
-                <div>
+                <div className="flex flex-col gap-2">
                   <Label htmlFor="signup-name">{t('auth.register.displayName')}</Label>
                   <div className="relative">
                     <User className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
@@ -199,7 +199,7 @@ export default function AuthComponent({ user, onAuthChange }) {
                   </div>
                 </div>
 
-                <div>
+                <div className="flex flex-col gap-2">
                   <Label htmlFor="signup-email">{t('auth.register.email')}</Label>
                   <div className="relative">
                     <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
@@ -216,7 +216,7 @@ export default function AuthComponent({ user, onAuthChange }) {
                   </div>
                 </div>
 
-                <div>
+                <div className="flex flex-col gap-2">
                   <Label htmlFor="signup-password">{t('auth.register.password')}</Label>
                   <div className="relative">
                     <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
