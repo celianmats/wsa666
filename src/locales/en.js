@@ -468,7 +468,11 @@ export default {
         accessibility: "Accessibility",
         local_tip: "General Tip",
       },
-
+      restricted_access: {
+        title: "Restricted Access",
+        description: "This feature is only available for registered users. Please sign in to continue.",
+        login_button: "Sign in",
+      },
       image_alt: "Tip image",
     }
   }

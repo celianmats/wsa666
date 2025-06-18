@@ -497,7 +497,11 @@ export default {
         accessibility: "Accessibilité",
         local_tip: "Conseil général"
       },
-
+      restricted_access: {
+            title: "Accès restreint",
+            description: "Cette fonctionnalité est uniquement accessible aux utilisateurs connectés. Veuillez vous connecter pour continuer.",
+            login_button: "Se connecter",
+      },
       image_alt: "Image du signalement",
     }
   }
