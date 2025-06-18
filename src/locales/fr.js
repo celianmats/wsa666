@@ -118,6 +118,12 @@ export default {
         allStatuses: "Tous les statuts",
         allCategories: "Toutes les catégories"
       },
+      statistics: {
+        title: "Statistiques des conseils et infos",
+        total_reports: "Total des conseils et infos",
+        green_tips: "Conseils verts",
+        contributors: "Contributeurs"
+      },
       statuses: {
         published: "Publié"
       },
@@ -428,21 +434,33 @@ export default {
     },
     // SignalementApp
     signalement: {
+      timeline: {
+        title: "Historique du signalement",
+        created: "Créé",
+        validated: "Validé",
+        archived: "Archivé",
+      },
+      validation: {
+        success: "Signalement validé avec succès !",
+      },
       create_tab: "Nouveau conseil",
       my_reports_tab: "Mes conseils ({{count}})",
+      success_message: "Votre conseil a été soumis avec succès !",
+      geolocation_success: "Votre position a été détectée avec succès.",
+      geolocation_error: "Impossible d'obtenir votre position. Veuillez vérifier vos paramètres pour autoriser la localisation ou entrer les coordonnées manuellement.",
       new_report: {
         title: "Créer un conseil",
-        description: "Veuillez fournir les détails du problème que vous souhaitez signaler.",
+        description: "Veuillez fournir les détails du conseil que vous souhaitez ajouter.",
       },
-
       form: {
         category_label: "Catégorie",
         category_placeholder: "Choisissez une catégorie",
         description_label: "Description",
+        space_name: "Nom de l'espace public (optionnel)",
         description_placeholder: "Renseignez une description détaillée du conseil ou de l'info",
         latitude_label: "Latitude",
         longitude_label: "Longitude",
-        location_name_label: "Nom du lieu",
+        location_name_label: "Nom du lieu (optionnel)",
         location_name_placeholder: "Ex : Parc Masséna, rue des Lilas...",
         get_location_button: "Utiliser ma position actuelle",
         image_label: "Image (optionnel)",
@@ -450,23 +468,23 @@ export default {
         submitting_button: "Envoi en cours...",
         submit_button: "Soumettre le signalement",
       },
-
       list: {
         no_reports_title: "Aucun conseil",
         no_reports_description: "Vous n’avez pas encore effectué de conseil.",
       },
-
       status: {
         pending: "En attente",
         in_progress: "En cours",
         resolved: "Résolu",
         rejected: "Rejeté",
-      },
+        validated: "Validé",
+        archived: "Archivé",
+        published: "Publié",
+        pendingMessage: "💡 Validez votre tip pour le rendre visible dans la page publique Signalements Citoyens",
+        publishedMessage: "✅ Ce tip est visible par tous les utilisateurs dans Signalements Citoyens",
+        archivedMessage: "📁 Ce tip est archivé et n'est plus visible publiquement"
 
-      timeline: {
-        title: "Historique du signalement",
       },
-
       categories: {
         road_damage: "Dommage sur la route",
         street_light: "Éclairage public",

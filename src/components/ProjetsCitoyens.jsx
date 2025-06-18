@@ -379,7 +379,7 @@ const ProjetsCitoyens = () => {
               Projets citoyens
             </h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Découvrez tous les projets qui transforment le quartier de l'Ariane. 
+              Découvrez tous les projets qui transforment la ville de Nice ! <br />
               Suivez leur avancement et participez à leur réalisation.
             </p>
           </motion.div>

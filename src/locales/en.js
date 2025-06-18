@@ -120,6 +120,12 @@ export default {
         grid: "Grid",
         timeline: "Timeline"
       },
+      statistics: {
+        title: "Tips & Information Statistics",
+        total_reports: "Total reports ",
+        green_tips: "Green tips",
+        contributors: "Contributors"
+      },
       statuses: {
         published: "Published",
         pending: "Pending",
@@ -402,19 +408,22 @@ export default {
     signalement: {
       create_tab: "New Tip",
       my_reports_tab: "My Tips ({{count}})",
+      success_message: "Your tip has been successfully submitted!",
+      geolocation_error: "Unable to obtain your location. Please check your settings to enable location or enter the coordinates manually.",
       new_report: {
         title: "Create a Tip",
-        description: "Please provide details about the tip or issue you'd like to share.",
+        description: "Please provide details about the tip you'd like to share.",
       },
 
       form: {
         category_label: "Category",
         category_placeholder: "Choose a category",
         description_label: "Description",
+        space_name: "Name of public space (optional)",
         description_placeholder: "Provide a detailed description of the tip or information",
         latitude_label: "Latitude",
         longitude_label: "Longitude",
-        location_name_label: "Place Name",
+        location_name_label: "Place Name (optional)",
         location_name_placeholder: "e.g., Masséna Park, Rue des Lilas...",
         get_location_button: "Use My Current Location",
         image_label: "Image (optional)",
@@ -427,16 +436,24 @@ export default {
         no_reports_title: "No Tips Yet",
         no_reports_description: "You haven't shared any tips yet.",
       },
-
       status: {
         pending: "Pending",
         in_progress: "In Progress",
         resolved: "Resolved",
         rejected: "Rejected",
+        validated: "Validated",
+        archived: "Archived",
+        published: "Published",
+        pendingMessage: "💡 Validate youtur tip to make it visible to all users in Citizen Reports",
+        publishedMessage: "✅ This tip is now visible to all users",
+        archivedMessage: "📁 This tip is archived and no longer visible to users",
       },
 
       timeline: {
         title: "Tip History",
+        created: "Created",
+        validated: "Validated",
+        archived: "Archived",
       },
 
       categories: {

@@ -10,7 +10,8 @@ import { Textarea } from '@/components/ui/textarea.jsx'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select.jsx'
 import { Badge } from '@/components/ui/badge.jsx'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs.jsx'
-import { MapPin, Camera, Clock, AlertTriangle, CheckCircle, XCircle, Upload } from 'lucide-react'
+import { MapPin, Camera, Clock, AlertTriangle, CheckCircle, XCircle, Upload, Eye, Archive, Trash2 } from 'lucide-react'
+import { Timestamp } from 'firebase/firestore'
 
 import { useTranslation } from 'react-i18next'
 
@@ -29,38 +30,112 @@ const statusConfig = {
   'archive': { label: 'archived', color: 'bg-gray-100 text-gray-800', icon: XCircle }
 }
 
-export default function SignalementApp({ user }) {
-  const { t } = useTranslation()
+export default function SignalementApp({ user, onNavigate }) {
+  const { t, i18n } = useTranslation()
   const [signalements, setSignalements] = useState([])
   const [loading, setLoading] = useState(false)
+  const [updatingStatus, setUpdatingStatus] = useState({})
   const [formData, setFormData] = useState({
     category: '',
     description: '',
+    nomLieu: '',
     latitude: '',
     longitude: '',
     image: null
   })
 
-  // Charger les signalements de l'utilisateur
+  // Charger les signalements de l'utilisateur (version sans index composite)
   useEffect(() => {
     if (!user) return
 
+    // Utiliser une requête simple pour éviter l'erreur d'index
     const q = query(
         collection(db, 'signalements'),
-        where('userId', '==', user.uid),
         orderBy('createdAt', 'desc')
     )
 
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const signalementsList = []
       querySnapshot.forEach((doc) => {
-        signalementsList.push({ id: doc.id, ...doc.data() })
+        const data = doc.data()
+        // Filtrer côté client pour ne garder que les signalements de l'utilisateur
+        if (data.userId === user.uid) {
+          signalementsList.push({ id: doc.id, ...data })
+        }
       })
       setSignalements(signalementsList)
+    }, (error) => {
+      console.error("Erreur lors du chargement des signalements:", error)
     })
 
     return () => unsubscribe()
   }, [user])
+
+  // Fonction pour valider un signalement
+  const validateSignalement = async (signalementId) => {
+    setUpdatingStatus(prev => ({ ...prev, [signalementId]: 'validating' }))
+
+    try {
+      const signalementRef = doc(db, 'signalements', signalementId)
+      const now = Timestamp.now()
+
+      // Récupérer le signalement actuel pour conserver la timeline
+      const currentSignalement = signalements.find(s => s.id === signalementId)
+      const currentTimeline = currentSignalement?.timeline || []
+
+      await updateDoc(signalementRef, {
+        status: 'valide',
+        updatedAt: now,
+        timeline: [
+          ...currentTimeline,
+          {
+            timestamp: now,
+            status: 'valide',
+          }
+        ]
+      })
+
+      alert(t("signalement.validation.success"))
+    } catch (error) {
+      console.error("Erreur lors de la validation:", error)
+      alert(t("signalement.validation.error") + error.message)
+    } finally {
+      setUpdatingStatus(prev => ({ ...prev, [signalementId]: null }))
+    }
+  }
+
+  // Fonction pour archiver un signalement
+  const archiveSignalement = async (signalementId) => {
+    setUpdatingStatus(prev => ({ ...prev, [signalementId]: 'archiving' }))
+
+    try {
+      const signalementRef = doc(db, 'signalements', signalementId)
+      const now = Timestamp.now()
+
+      // Récupérer le signalement actuel pour conserver la timeline
+      const currentSignalement = signalements.find(s => s.id === signalementId)
+      const currentTimeline = currentSignalement?.timeline || []
+
+      await updateDoc(signalementRef, {
+        status: 'archive',
+        updatedAt: now,
+        timeline: [
+          ...currentTimeline,
+          {
+            timestamp: now,
+            status: 'archive',
+          }
+        ]
+      })
+
+      alert(t("signalement.archive.success"))
+    } catch (error) {
+      console.error("Erreur lors de l'archivage:", error)
+      alert(t("signalement.archive.error") + error.message)
+    } finally {
+      setUpdatingStatus(prev => ({ ...prev, [signalementId]: null }))
+    }
+  }
 
   // Obtenir la géolocalisation
   const getCurrentLocation = () => {
@@ -116,22 +191,24 @@ export default function SignalementApp({ user }) {
         imageUrl = await getDownloadURL(snapshot.ref)
       }
 
+      const now = Timestamp.now()
+
       // Créer le signalement
       const signalementData = {
         userId: user.uid,
         userEmail: user.email,
         category: formData.category,
         description: formData.description,
+        nomLieu: formData.nomLieu || "",
         latitude: parseFloat(formData.latitude),
         longitude: parseFloat(formData.longitude),
         imageUrl,
         status: "suggere", // Nouveau statut par défaut
-        createdAt: new Date(),
-        updatedAt: new Date(),
+        createdAt: now,
+        updatedAt: now,
         timeline: [{
-          timestamp: new Date(),
+          timestamp: now,
           status: "suggere",
-          comment: t("signalement.timeline.created")
         }]
       }
 
@@ -141,6 +218,7 @@ export default function SignalementApp({ user }) {
       setFormData({
         category: "",
         description: "",
+        nomLieu: "",
         latitude: "",
         longitude: "",
         image: null
@@ -276,9 +354,9 @@ export default function SignalementApp({ user }) {
                     <Label htmlFor="locationName">{t("signalement.form.location_name_label")}</Label>
                     <Input
                         id="locationName"
-                        name="locationName"
+                        name="nomLieu"
                         type="text"
-                        value={formData.locationName}
+                        value={formData.nomLieu}
                         onChange={handleInputChange}
                         placeholder={t("signalement.form.location_name_placeholder")}
                     />
@@ -337,6 +415,8 @@ export default function SignalementApp({ user }) {
               ) : (
                   signalements.map((signalement) => {
                     const StatusIcon = statusConfig[signalement.status]?.icon || AlertTriangle
+                    const isUpdating = updatingStatus[signalement.id]
+
                     return (
                         <Card key={signalement.id}>
                           <CardHeader>
@@ -358,11 +438,14 @@ export default function SignalementApp({ user }) {
                           </CardHeader>
                           <CardContent>
                             <p className="text-gray-700 mb-3">{signalement.description}</p>
+                            {signalement.nomLieu && (
+                                <p className="text-black font-bold mb-1">{signalement.nomLieu}</p>
+                            )}
 
                             <div className="flex items-center gap-4 text-sm text-gray-500 mb-3">
                               <div className="flex items-center gap-1">
                                 <MapPin className="w-4 h-4" />
-                                {signalement.locationName ? signalement.locationName : `${signalement.latitude?.toFixed(4)}, ${signalement.longitude?.toFixed(4)}`}
+                                {signalement.nomLieu || `${signalement.latitude?.toFixed(4)}, ${signalement.longitude?.toFixed(4)}`}
                               </div>
                             </div>
 
@@ -372,12 +455,15 @@ export default function SignalementApp({ user }) {
                                       src={signalement.imageUrl}
                                       alt={t("signalement.image_alt")}
                                       className="max-w-full h-48 object-cover rounded-lg"
+                                      onError={(e) => {
+                                        e.target.style.display = 'none'
+                                      }}
                                   />
                                 </div>
                             )}
 
-                            {signalement.timeline && signalement.timeline.length > 1 && (
-                                <div className="border-t pt-3">
+                            {signalement.timeline && signalement.timeline.length > 0 && (
+                                <div className="border-t pt-3 mb-4">
                                   <h4 className="font-semibold text-sm mb-2">{t("signalement.timeline.title")}</h4>
                                   <div className="space-y-2">
                                     {signalement.timeline.map((entry, index) => (
@@ -386,16 +472,126 @@ export default function SignalementApp({ user }) {
                                             {t(`signalement.status.${statusConfig[entry.status]?.label}`)}
                                           </Badge>
                                           <span className="text-gray-500">
-                                  {formatDate(entry.timestamp)}
-                                </span>
-                                          {entry.comment && (
-                                              <span className="text-gray-700">- {entry.comment}</span>
-                                          )}
+                                            {formatDate(entry.timestamp)}
+                                          </span>
                                         </div>
                                     ))}
                                   </div>
                                 </div>
                             )}
+
+                            {/* Boutons d'action selon le statut */}
+                            <div className="border-t pt-3">
+                              <div className="flex gap-2 flex-wrap">
+                                {signalement.status === 'suggere' && (
+                                    <>
+                                      <Button
+                                          onClick={() => validateSignalement(signalement.id)}
+                                          disabled={isUpdating}
+                                          size="sm"
+                                          className="bg-green-600 hover:bg-green-700 text-white"
+                                      >
+                                        {isUpdating === 'validating' ? (
+                                            <>
+                                              <Upload className="w-4 h-4 mr-2 animate-spin" />
+                                              Validation...
+                                            </>
+                                        ) : (
+                                            <>
+                                              <CheckCircle className="w-4 h-4 mr-2" />
+                                              Valider et publier
+                                            </>
+                                        )}
+                                      </Button>
+                                      <Button
+                                          onClick={() => archiveSignalement(signalement.id)}
+                                          disabled={isUpdating}
+                                          size="sm"
+                                          variant="outline"
+                                      >
+                                        {isUpdating === 'archiving' ? (
+                                            <>
+                                              <Upload className="w-4 h-4 mr-2 animate-spin" />
+                                              Archivage...
+                                            </>
+                                        ) : (
+                                            <>
+                                              <Archive className="w-4 h-4 mr-2" />
+                                              Archiver
+                                            </>
+                                        )}
+                                      </Button>
+                                    </>
+                                )}
+
+                                {signalement.status === 'valide' && (
+                                    <div className="flex items-center gap-2">
+                                      <Badge variant="outline" className="text-green-700 border-green-300">
+                                        <Eye className="w-3 h-3 mr-1" />
+                                        Visible publiquement
+                                      </Badge>
+                                      <Button
+                                          onClick={() => archiveSignalement(signalement.id)}
+                                          disabled={isUpdating}
+                                          size="sm"
+                                          variant="outline"
+                                      >
+                                        {isUpdating === 'archiving' ? (
+                                            <>
+                                              <Upload className="w-4 h-4 mr-2 animate-spin" />
+                                              Archivage...
+                                            </>
+                                        ) : (
+                                            <>
+                                              <Archive className="w-4 h-4 mr-2" />
+                                              Archiver
+                                            </>
+                                        )}
+                                      </Button>
+                                    </div>
+                                )}
+
+                                {signalement.status === 'archive' && (
+                                    <div className="flex items-center gap-2">
+                                      <Badge variant="outline" className="text-gray-600 border-gray-300">
+                                        <Archive className="w-3 h-3 mr-1" />
+                                        Archivé
+                                      </Badge>
+                                      <Button
+                                          onClick={() => validateSignalement(signalement.id)}
+                                          disabled={isUpdating}
+                                          size="sm"
+                                          variant="outline"
+                                      >
+                                        {isUpdating === 'validating' ? (
+                                            <>
+                                              <Upload className="w-4 h-4 mr-2 animate-spin" />
+                                              Restauration...
+                                            </>
+                                        ) : (
+                                            <>
+                                              <CheckCircle className="w-4 h-4 mr-2" />
+                                              Republier
+                                            </>
+                                        )}
+                                      </Button>
+                                    </div>
+                                )}
+                              </div>
+
+                              {/* Message d'aide selon le statut */}
+                              <div className="mt-2 text-xs text-gray-500">
+                                {signalement.status === 'suggere' && (
+                                    <p>{t("signalement.status.pendingMessage")}</p>
+                                )}
+                                {signalement.status === 'valide' && (
+                                    <p>{t("signalement.status.publishedMessage")}</p>
+                                )}
+                                {signalement.status === 'archive' && (
+                                    <p>{t("signalement.status.archivedMessage")}</p>
+                                )}
+                              </div>
+                            </div>
                           </CardContent>
                         </Card>
                     )
