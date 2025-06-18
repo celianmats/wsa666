@@ -6,6 +6,7 @@ export default {
       reports: "Conseils & Infos",
       projects: "Projets",
       map: "Carte",
+      tips: "Ajouter une info",
       contact: "Contact",
       login: "Se connecter",
       logout: "Se déconnecter",
@@ -14,8 +15,10 @@ export default {
 
     // Page d'accueil
     home: {
-      title: "Nice Ville de Demain",
-      subtitle: "Ensemble, construisons une ville inclusive, durable et connectée",
+      title: "NICE SAFE PLACE",
+      title1: "NICE",
+      title2: "LA VILLE DE DEMAIN",
+      subtitle: "Ensemble, construisons notre SAFE PLACE",
       valueA: "Inclusif",
       valueB: "Durable",
       valueC: "Connecté",
@@ -27,7 +30,8 @@ export default {
       },
       vision: {
         title: "Notre Vision",
-        subtitle: "La ville de Nice est en train de se transformer en un modèle de ville durable et connectée. Notre mission est de créer un environnement urbain qui favorise l'inclusion sociale, la durabilité environnementale et l'innovation technologique au service des citoyens.",
+        subtitle: "Nice Safe Place est un projet citoyen imaginé pour rendre la ville de Nice plus inclusive, plus accueillante, et plus à l’écoute de celles et ceux qui y vivent.\n" +
+            "Ce dispositif a été conçu pour valoriser les lieux où l’on se sent bien.",
         inclusive: {
           title: "Inclusif",
           description: "Une ville accessible à tous, où chaque citoyen peut participer à la vie communautaire"
