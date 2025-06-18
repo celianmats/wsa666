@@ -231,7 +231,7 @@ export default function AuthComponent({ user, onAuthChange }) {
                         required
                     />
                   </div>
-                  <div className="flex gap-2">
+                  <div className="flex gap-4">
                     <Button type="submit" disabled={loading} className="flex-1">
                       {loading ? t('auth.profile.updating') : t('auth.profile.save')}
                     </Button>
@@ -283,7 +283,7 @@ export default function AuthComponent({ user, onAuthChange }) {
           <CardDescription>{t('auth.description')}</CardDescription>
         </CardHeader>
         <CardContent>
-          <Tabs defaultValue="signin" className="w-full">
+          <Tabs defaultValue="signin" className="w-full gap-4">
             <TabsList className="grid w-full grid-cols-2">
               <TabsTrigger value="signin">{t('auth.login.title')}</TabsTrigger>
               <TabsTrigger value="signup">{t('auth.register.title')}</TabsTrigger>
@@ -291,7 +291,7 @@ export default function AuthComponent({ user, onAuthChange }) {
 
             <TabsContent value="signin">
               <form onSubmit={handleSignIn} className="space-y-4">
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-col gap-4">
                   <Label htmlFor="signin-email">{t('auth.login.email')}</Label>
                   <div className="relative">
                     <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
@@ -308,7 +308,7 @@ export default function AuthComponent({ user, onAuthChange }) {
                   </div>
                 </div>
 
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-col gap-4">
                   <Label htmlFor="signin-password">{t('auth.login.password')}</Label>
                   <div className="relative">
                     <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
@@ -325,7 +325,7 @@ export default function AuthComponent({ user, onAuthChange }) {
                   </div>
                 </div>
 
-                <Button type="submit" className="w-full" disabled={loading}>
+                <Button type="submit" className="w-full bg-[#2E599A] hover:bg-[#223552]" disabled={loading}>
                   {loading ? `${t('auth.login.loading')}` : t('auth.login.submit')}
                 </Button>
               </form>
@@ -333,7 +333,7 @@ export default function AuthComponent({ user, onAuthChange }) {
 
             <TabsContent value="signup">
               <form onSubmit={handleSignUp} className="space-y-4">
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-col gap-4">
                   <Label htmlFor="signup-name">{t('auth.register.displayName')}</Label>
                   <div className="relative">
                     <User className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
@@ -350,7 +350,7 @@ export default function AuthComponent({ user, onAuthChange }) {
                   </div>
                 </div>
 
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-col gap-4">
                   <Label htmlFor="signup-email">{t('auth.register.email')}</Label>
                   <div className="relative">
                     <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
@@ -367,7 +367,7 @@ export default function AuthComponent({ user, onAuthChange }) {
                   </div>
                 </div>
 
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-col gap-4">
                   <Label htmlFor="signup-password">{t('auth.register.password')}</Label>
                   <div className="relative">
                     <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
@@ -385,7 +385,7 @@ export default function AuthComponent({ user, onAuthChange }) {
                   </div>
                 </div>
 
-                <Button type="submit" className="w-full" disabled={loading}>
+                <Button type="submit" className="w-full bg-[#2E599A] hover:bg-[#223552]" disabled={loading}>
                   {loading ? `${t('auth.register.loading')}` : t('auth.register.submit')}
                 </Button>
               </form>
