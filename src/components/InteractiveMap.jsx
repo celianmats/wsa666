@@ -103,15 +103,39 @@ const createCustomIcon = (color, symbol) => {
     iconAnchor: [15, 15]
   })
 }
+// Icônes personnalisées pour différents types de points
+const createCustomSVG = (color, logoUrl) => {
+  return L.divIcon({
+    className: 'custom-marker',
+    html: `
+      <div style="
+        background-color: ${color};
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        border: 3px solid white;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        color: white;
+        font-weight: bold;
+      "><img src="${logoUrl}" alt="icon" style="width: 100%; height: 100%;" /></div>
+    `,
+    iconSize: [30, 30],
+    iconAnchor: [15, 15]
+  })
+}
 
 const typeIcons = {
   commerce: createCustomIcon('#3B82F6', '🛒'),
-  education: createCustomIcon('#10B981', '🎓'),
-  espaces_verts: createCustomIcon('#22C55E', '🌳'),
-  administration: createCustomIcon('#8B5CF6', '🏛️'),
-  sante: createCustomIcon('#EF4444', '🏥'),
-  projet_en_cours: createCustomIcon('#F59E0B', '🚧'),
-  projet_planifie: createCustomIcon('#6B7280', '📋')
+  education: createCustomIcon('#3B82F6', '🎓'),
+  espaces_verts: createCustomIcon('#3B82F6', '🌳'),
+  administration: createCustomIcon('#3B82F6', '🏛️'),
+  sante: createCustomIcon('#3B82F6', '🏥'),
+  projet_en_cours: createCustomIcon('#3B82F6', '🚧'),
+  projet_planifie: createCustomIcon('#3B82F6', '📋')
 }
 
 function MapUpdater({ center, zoom }) {
@@ -190,10 +214,10 @@ export default function InteractiveMap({
           <Marker
             key={`signalement-${signalement.id}`}
             position={[signalement.latitude, signalement.longitude]}
-            icon={createCustomIcon(
+            icon={createCustomSVG(
               signalement.status === 'resolu' ? '#22C55E' : 
-              signalement.status === 'en_cours' ? '#F59E0B' : '#EF4444',
-              '⚠️'
+              signalement.status === 'en_cours' ? '#F59E0B' : '#4038da',
+                '/logo.svg'
             )}
             eventHandlers={{
               click: () => onSignalementClick && onSignalementClick(signalement)
