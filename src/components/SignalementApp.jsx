@@ -375,20 +375,20 @@ export default function SignalementApp({user, onNavigate}) {
                                         {t("signalement.form.get_location_button")}
                                     </Button>
 
-                                    <div className="flex flex-col gap-4">
-                                        <Label htmlFor="image">{t("signalement.form.image_label")}</Label>
-                                        <Input
-                                            id="image"
-                                            name="image"
-                                            type="file"
-                                            accept="image/*"
-                                            onChange={handleInputChange}
-                                            className="mt-1"
-                                        />
-                                        <p className="text-sm text-gray-500 mt-1">
-                                            {t("signalement.form.image_formats")}
-                                        </p>
-                                    </div>
+                                    {/*<div className="flex flex-col gap-4">*/}
+                                    {/*    <Label htmlFor="image">{t("signalement.form.image_label")}</Label>*/}
+                                    {/*    <Input*/}
+                                    {/*        id="image"*/}
+                                    {/*        name="image"*/}
+                                    {/*        type="file"*/}
+                                    {/*        accept="image/*"*/}
+                                    {/*        onChange={handleInputChange}*/}
+                                    {/*        className="mt-1"*/}
+                                    {/*    />*/}
+                                    {/*    <p className="text-sm text-gray-500 mt-1">*/}
+                                    {/*        {t("signalement.form.image_formats")}*/}
+                                    {/*    </p>*/}
+                                    {/*</div>*/}
 
                                     <Button type="submit" className="w-full" disabled={loading}>
                                         {loading ? (
@@ -450,7 +450,7 @@ export default function SignalementApp({user, onNavigate}) {
                                                 </div>
                                             </CardHeader>
                                             <CardContent>
-                                                <p className="text-gray-700 mb-3">{signalement.description}</p>
+                                                <p className="text-gray-700 mb-3">{signalement.description}</p>aa
                                                 {signalement.nomLieu && (
                                                     <p className="text-black font-bold mb-1">{signalement.nomLieu}</p>
                                                 )}

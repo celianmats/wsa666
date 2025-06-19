@@ -188,10 +188,26 @@ const ProjetsCitoyens = () => {
 
     const getStatusBadge = (statut) => {
         const statusConfig = {
-            'en_cours': {label: 'En cours', variant: 'default', icon: PlayCircle},
-            'planifie': {label: 'Planifié', variant: 'secondary', icon: Calendar},
-            'a_venir': {label: 'À venir', variant: 'outline', icon: Clock},
-            'en_preparation': {label: 'En préparation', variant: 'destructive', icon: AlertCircle}
+            'en_cours': {
+                label: t("projects.statuses.inProgress"),
+                variant: 'default',
+                icon: PlayCircle
+            },
+            'planifie': {
+                label: t("projects.statuses.planned"),
+                variant: 'secondary',
+                icon: Calendar
+            },
+            'a_venir': {
+                label: t("projects.statuses.upcoming"),
+                variant: 'outline',
+                icon: Clock
+            },
+            'en_preparation': {
+                label: t("projects.statuses.inPreparation"),
+                variant: 'destructive',
+                icon: AlertCircle
+            }
         }
 
         const config = statusConfig[statut] || statusConfig['a_venir']
@@ -262,7 +278,7 @@ const ProjetsCitoyens = () => {
                         </div>
 
                         <div className="pt-2 border-t">
-                            <p className="text-xs text-gray-600 mb-1">Prochaine étape :</p>
+                            <p className="text-xs text-gray-600 mb-1">{t("projects.card.next_step")}</p>
                             <p className="text-sm font-medium">{projet.prochaineMilestone}</p>
                         </div>
                     </div>

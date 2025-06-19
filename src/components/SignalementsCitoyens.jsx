@@ -52,7 +52,7 @@ const SignalementsCitoyens = ({user, onNavigate}) => {
                     id: doc.id,
                     ...data,
                     // Adapter les noms de champs pour correspondre à l'interface existante
-                    titre: data.description, // Utiliser la description comme titre
+                    titre: data.category, // Utiliser la description comme titre
                     auteur: data.userEmail || 'Utilisateur anonyme',
                     localisation: data.nomLieu || `${data.latitude?.toFixed(4)}, ${data.longitude?.toFixed(4)}`,
                     dateCreation: data.createdAt,
@@ -160,7 +160,27 @@ const SignalementsCitoyens = ({user, onNavigate}) => {
                         <div className="flex items-center gap-2">
                             {getCategoryIcon(signalement.categorie)}
                             <div>
-                                <CardTitle className="text-lg line-clamp-2">{signalement.titre}</CardTitle>
+                                <CardTitle className="text-lg line-clamp-2">
+                                    {(() => {
+                                        switch (signalement.titre) {
+                                            case "itinerary":
+                                                return t("signalement.categories.itinerary");
+                                            case "event":
+                                                return t("signalement.categories.event");
+                                            case "green_hub":
+                                                return t("signalement.categories.green_hub");
+                                            case "accessibility":
+                                                return t("signalement.categories.accessibility");
+                                            case "local_tip":
+                                                return t("signalement.categories.local_tip");
+                                            case "other":
+                                                return t("signalement.categories.other");
+                                            default:
+                                                return signalement.titre;
+                                        }
+                                    })()}
+                                </CardTitle>
+
                                 <CardDescription className="text-sm text-gray-600">
                                     {signalement.auteur}
                                 </CardDescription>
