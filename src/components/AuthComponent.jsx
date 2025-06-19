@@ -377,314 +377,317 @@ export default function AuthComponent({user, onAuthChange}) {
 
     if (user) {
         return (
-            <Tabs defaultValue="profile" className="w-full">
-                <TabsList className="grid w-full grid-cols-2">
-                    <TabsTrigger value="profile">{t("auth.tabs.profile")}</TabsTrigger>
-                    <TabsTrigger
-                        value="list">{t("signalement.my_reports_tab", {count: signalements.length})}</TabsTrigger>
-                </TabsList>
+            <div className="w-full max-w-4xl mx-auto space-y-6">
+                <Tabs defaultValue="profile" className="w-full">
+                    <TabsList className="grid w-full grid-cols-2">
+                        <TabsTrigger value="profile">{t("auth.tabs.profile")}</TabsTrigger>
+                        <TabsTrigger
+                            value="list">{t("signalement.my_reports_tab", {count: signalements.length})}</TabsTrigger>
+                    </TabsList>
 
-                <TabsContent value="profile">
-                    <motion.div initial={{opacity: 0, y: 30}}
-                                animate={{opacity: 1, y: 0}}
-                                transition={{duration: 0.8, delay: 0.4}}
-                                className="flex flex-col gap-4 justify-center">
-                        <Card className="w-full">
-                            <CardHeader>
-                                <CardTitle className="flex items-center gap-2">
-                                    <User className="w-5 h-5"/>
-                                    {t('auth.title')}
-                                </CardTitle>
-                            </CardHeader>
-                            <CardContent className="space-y-4">
-                                <div>
-                                    <Label>{t('auth.login.email')}</Label>
-                                    <p className="text-sm text-gray-600">{user.email}</p>
-                                </div>
-
-                                {editingProfile ? (
-                                    <form onSubmit={handleUpdateProfile} className="space-y-4">
-                                        <div className="flex flex-col gap-4">
-                                            <Label htmlFor="edit-displayName">{t('auth.register.displayName')}</Label>
-                                            <Input
-                                                id="edit-displayName"
-                                                name="displayName"
-                                                type="text"
-                                                value={profileData.displayName}
-                                                onChange={handleProfileChange}
-                                                placeholder={t('auth.register.displayName')}
-                                                required
-                                            />
-                                        </div>
-                                        <div className="flex gap-4">
-                                            <Button type="submit" disabled={loading} className="flex-1">
-                                                {loading ? t('auth.profile.updating') : t('auth.profile.save')}
-                                            </Button>
-                                            <Button
-                                                type="button"
-                                                variant="outline"
-                                                onClick={() => {
-                                                    setEditingProfile(false)
-                                                    setProfileData({
-                                                        displayName: userProfile?.displayName || ''
-                                                    })
-                                                }}
-                                                className="flex-1"
-                                            >
-                                                {t('auth.profile.cancel')}
-                                            </Button>
-                                        </div>
-                                    </form>
-                                ) : (
+                    <TabsContent value="profile">
+                        <motion.div initial={{opacity: 0, y: 30}}
+                                    animate={{opacity: 1, y: 0}}
+                                    transition={{duration: 0.8, delay: 0.4}}
+                                    className="flex flex-col gap-4 justify-center">
+                            <Card className="w-full">
+                                <CardHeader>
+                                    <CardTitle className="flex items-center gap-2">
+                                        <User className="w-5 h-5"/>
+                                        {t('auth.title')}
+                                    </CardTitle>
+                                </CardHeader>
+                                <CardContent className="space-y-4">
                                     <div>
-                                        <div className="flex items-center justify-between">
-                                            <Label>{t('auth.register.displayName')}</Label>
-                                            <Button
-                                                variant="ghost"
-                                                size="sm"
-                                                onClick={() => setEditingProfile(true)}
-                                                className="h-auto p-1"
-                                            >
-                                                <Edit className="w-4 h-4"/>
-                                            </Button>
+                                        <Label>{t('auth.login.email')}</Label>
+                                        <p className="text-sm text-gray-600">{user.email}</p>
+                                    </div>
+
+                                    {editingProfile ? (
+                                        <form onSubmit={handleUpdateProfile} className="space-y-4">
+                                            <div className="flex flex-col gap-4">
+                                                <Label
+                                                    htmlFor="edit-displayName">{t('auth.register.displayName')}</Label>
+                                                <Input
+                                                    id="edit-displayName"
+                                                    name="displayName"
+                                                    type="text"
+                                                    value={profileData.displayName}
+                                                    onChange={handleProfileChange}
+                                                    placeholder={t('auth.register.displayName')}
+                                                    required
+                                                />
+                                            </div>
+                                            <div className="flex gap-4">
+                                                <Button type="submit" disabled={loading} className="flex-1">
+                                                    {loading ? t('auth.profile.updating') : t('auth.profile.save')}
+                                                </Button>
+                                                <Button
+                                                    type="button"
+                                                    variant="outline"
+                                                    onClick={() => {
+                                                        setEditingProfile(false)
+                                                        setProfileData({
+                                                            displayName: userProfile?.displayName || ''
+                                                        })
+                                                    }}
+                                                    className="flex-1"
+                                                >
+                                                    {t('auth.profile.cancel')}
+                                                </Button>
+                                            </div>
+                                        </form>
+                                    ) : (
+                                        <div>
+                                            <div className="flex items-center justify-between">
+                                                <Label>{t('auth.register.displayName')}</Label>
+                                                <Button
+                                                    variant="ghost"
+                                                    size="sm"
+                                                    onClick={() => setEditingProfile(true)}
+                                                    className="h-auto p-1"
+                                                >
+                                                    <Edit className="w-4 h-4"/>
+                                                </Button>
+                                            </div>
+                                            <p className="text-sm text-gray-600">{getDisplayName()}</p>
                                         </div>
-                                        <p className="text-sm text-gray-600">{getDisplayName()}</p>
-                                    </div>
-                                )}
+                                    )}
 
-                                <Button onClick={handleSignOut} variant="outline" className="w-full">
-                                    <LogOut className="w-4 h-4 mr-2"/>
-                                    {t('auth.logout.button')}
-                                </Button>
-                            </CardContent>
-                        </Card>
-                    </motion.div>
-                </TabsContent>
-
-
-                <TabsContent value="list">
-                    <motion.div initial={{opacity: 0, y: 30}}
-                                animate={{opacity: 1, y: 0}}
-                                transition={{duration: 0.8, delay: 0.4}}
-                                className="flex flex-col gap-4 justify-center">
-                        <div className="space-y-4">
-                            <Card>
-                                <CardContent>
-                                    <div
-                                        className="text-center text-gray-500 flex flex-row items-center gap-2 justify-center">
-                                        <Trophy className="w-12 h-12 text-gray-300"/>
-                                        <p>{t("auth.tabs.tips.subtitle")}</p>
-                                    </div>
+                                    <Button onClick={handleSignOut} variant="outline" className="w-full">
+                                        <LogOut className="w-4 h-4 mr-2"/>
+                                        {t('auth.logout.button')}
+                                    </Button>
                                 </CardContent>
                             </Card>
-                        </div>
-                        <div className="space-y-4">
-                            {signalements.length === 0 ? (
+                        </motion.div>
+                    </TabsContent>
+
+
+                    <TabsContent value="list">
+                        <motion.div initial={{opacity: 0, y: 30}}
+                                    animate={{opacity: 1, y: 0}}
+                                    transition={{duration: 0.8, delay: 0.4}}
+                                    className="flex flex-col gap-4 justify-center">
+                            <div className="space-y-4">
                                 <Card>
-                                    <CardContent className="pt-6">
-                                        <div className="text-center text-gray-500">
-                                            <AlertTriangle className="w-12 h-12 mx-auto mb-4 text-gray-300"/>
-                                            <p>{t("signalement.list.no_reports_title")}</p>
-                                            <p className="text-sm">{t("signalement.list.no_reports_description")}</p>
+                                    <CardContent>
+                                        <div
+                                            className="text-center text-gray-500 flex flex-row items-center gap-2 justify-center">
+                                            <Trophy className="w-12 h-12 text-gray-300"/>
+                                            <p>{t("auth.tabs.tips.subtitle")}</p>
                                         </div>
                                     </CardContent>
                                 </Card>
-                            ) : (
-                                signalements.map((signalement) => {
-                                    const StatusIcon = statusConfig[signalement.status]?.icon || AlertTriangle
-                                    const isUpdating = updatingStatus[signalement.id]
+                            </div>
+                            <div className="space-y-4">
+                                {signalements.length === 0 ? (
+                                    <Card>
+                                        <CardContent className="pt-6">
+                                            <div className="text-center text-gray-500">
+                                                <AlertTriangle className="w-12 h-12 mx-auto mb-4 text-gray-300"/>
+                                                <p>{t("signalement.list.no_reports_title")}</p>
+                                                <p className="text-sm">{t("signalement.list.no_reports_description")}</p>
+                                            </div>
+                                        </CardContent>
+                                    </Card>
+                                ) : (
+                                    signalements.map((signalement) => {
+                                        const StatusIcon = statusConfig[signalement.status]?.icon || AlertTriangle
+                                        const isUpdating = updatingStatus[signalement.id]
 
-                                    return (
-                                        <Card key={signalement.id}>
-                                            <CardHeader>
-                                                <div className="flex items-start justify-between">
-                                                    <div>
-                                                        <CardTitle className="text-lg">
-                                                            {getCategoryLabel(signalement.category)}
-                                                        </CardTitle>
-                                                        <CardDescription className="flex items-center gap-2 mt-1">
-                                                            <Clock className="w-4 h-4"/>
-                                                            {formatDate(signalement.createdAt)}
-                                                        </CardDescription>
+                                        return (
+                                            <Card key={signalement.id}>
+                                                <CardHeader>
+                                                    <div className="flex items-start justify-between">
+                                                        <div>
+                                                            <CardTitle className="text-lg">
+                                                                {getCategoryLabel(signalement.category)}
+                                                            </CardTitle>
+                                                            <CardDescription className="flex items-center gap-2 mt-1">
+                                                                <Clock className="w-4 h-4"/>
+                                                                {formatDate(signalement.createdAt)}
+                                                            </CardDescription>
+                                                        </div>
+                                                        <Badge className={statusConfig[signalement.status]?.color}>
+                                                            <StatusIcon className="w-3 h-3 mr-1"/>
+                                                            {t(`signalement.status.${statusConfig[signalement.status]?.label}`)}
+                                                        </Badge>
                                                     </div>
-                                                    <Badge className={statusConfig[signalement.status]?.color}>
-                                                        <StatusIcon className="w-3 h-3 mr-1"/>
-                                                        {t(`signalement.status.${statusConfig[signalement.status]?.label}`)}
-                                                    </Badge>
-                                                </div>
-                                            </CardHeader>
-                                            <CardContent>
-                                                <p className="text-gray-700 mb-3">{signalement.description}</p>
-                                                {signalement.nomLieu && (
-                                                    <p className="text-black font-bold mb-1">{signalement.nomLieu}</p>
-                                                )}
+                                                </CardHeader>
+                                                <CardContent>
+                                                    <p className="text-gray-700 mb-3">{signalement.description}</p>
+                                                    {signalement.nomLieu && (
+                                                        <p className="text-black font-bold mb-1">{signalement.nomLieu}</p>
+                                                    )}
 
-                                                <div className="flex items-center gap-4 text-sm text-gray-500 mb-3">
-                                                    <div className="flex items-center gap-1">
-                                                        <MapPin className="w-4 h-4"/>
-                                                        {signalement.nomLieu || `${signalement.latitude?.toFixed(4)}, ${signalement.longitude?.toFixed(4)}`}
-                                                    </div>
-                                                </div>
-
-                                                {signalement.imageUrl && (
-                                                    <div className="mb-3">
-                                                        <img
-                                                            src={signalement.imageUrl}
-                                                            alt={t("signalement.image_alt")}
-                                                            className="max-w-full h-48 object-cover rounded-lg"
-                                                            onError={(e) => {
-                                                                e.target.style.display = 'none'
-                                                            }}
-                                                        />
-                                                    </div>
-                                                )}
-
-                                                {signalement.timeline && signalement.timeline.length > 0 && (
-                                                    <div className="border-t pt-3 mb-4">
-                                                        <h4 className="font-semibold text-sm mb-2">{t("signalement.timeline.title")}</h4>
-                                                        <div className="space-y-2">
-                                                            {signalement.timeline.map((entry, index) => (
-                                                                <div key={index}
-                                                                     className="flex items-center gap-2 text-sm">
-                                                                    <Badge variant="outline" className="text-xs">
-                                                                        {t(`signalement.status.${statusConfig[entry.status]?.label}`)}
-                                                                    </Badge>
-                                                                    <span className="text-gray-500">
-                                            {formatDate(entry.timestamp)}
-                                          </span>
-                                                                </div>
-                                                            ))}
+                                                    <div className="flex items-center gap-4 text-sm text-gray-500 mb-3">
+                                                        <div className="flex items-center gap-1">
+                                                            <MapPin className="w-4 h-4"/>
+                                                            {signalement.nomLieu || `${signalement.latitude?.toFixed(4)}, ${signalement.longitude?.toFixed(4)}`}
                                                         </div>
                                                     </div>
-                                                )}
 
-                                                {/* Boutons d'action selon le statut */}
-                                                <div className="border-t pt-3">
-                                                    <div className="flex gap-2 flex-wrap">
-                                                        {signalement.status === 'suggere' && (
-                                                            <>
-                                                                <Button
-                                                                    onClick={() => validateSignalement(signalement.id)}
-                                                                    disabled={isUpdating}
-                                                                    size="sm"
-                                                                    className="bg-green-600 hover:bg-green-700 text-white"
-                                                                >
-                                                                    {isUpdating === 'validating' ? (
-                                                                        <>
-                                                                            <Upload
-                                                                                className="w-4 h-4 mr-2 animate-spin"/>
-                                                                            {t("signalement.timeline.validation")}
-                                                                        </>
-                                                                    ) : (
-                                                                        <>
-                                                                            <CheckCircle className="w-4 h-4 mr-2"/>
-                                                                            {t("signalement.status.validationpublish")}
-                                                                        </>
-                                                                    )}
-                                                                </Button>
-                                                                <Button
-                                                                    onClick={() => archiveSignalement(signalement.id)}
-                                                                    disabled={isUpdating}
-                                                                    size="sm"
-                                                                    variant="outline"
-                                                                >
-                                                                    {isUpdating === 'archiving' ? (
-                                                                        <>
-                                                                            <Upload
-                                                                                className="w-4 h-4 mr-2 animate-spin"/>
-                                                                            {t("signalement.status.archiveloading")}
-                                                                        </>
-                                                                    ) : (
-                                                                        <>
-                                                                            <Archive className="w-4 h-4 mr-2"/>
-                                                                            {t("signalement.status.archiver")}
-                                                                        </>
-                                                                    )}
-                                                                </Button>
-                                                            </>
-                                                        )}
+                                                    {signalement.imageUrl && (
+                                                        <div className="mb-3">
+                                                            <img
+                                                                src={signalement.imageUrl}
+                                                                alt={t("signalement.image_alt")}
+                                                                className="max-w-full h-48 object-cover rounded-lg"
+                                                                onError={(e) => {
+                                                                    e.target.style.display = 'none'
+                                                                }}
+                                                            />
+                                                        </div>
+                                                    )}
 
-                                                        {signalement.status === 'valide' && (
-                                                            <div className="flex items-center gap-2">
-                                                                <Badge variant="outline"
-                                                                       className="text-green-700 border-green-300">
-                                                                    <Eye className="w-3 h-3 mr-1"/>
-                                                                    {t("signalement.status.visible")}
-                                                                </Badge>
-                                                                <Button
-                                                                    onClick={() => archiveSignalement(signalement.id)}
-                                                                    disabled={isUpdating}
-                                                                    size="sm"
-                                                                    variant="outline"
-                                                                >
-                                                                    {isUpdating === 'archiving' ? (
-                                                                        <>
-                                                                            <Upload
-                                                                                className="w-4 h-4 mr-2 animate-spin"/>
-                                                                            {t("signalement.status.archiveloading")}
-                                                                        </>
-                                                                    ) : (
-                                                                        <>
-                                                                            <Archive className="w-4 h-4 mr-2"/>
-                                                                            {t("signalement.status.archiver")}
-                                                                        </>
-                                                                    )}
-                                                                </Button>
+                                                    {signalement.timeline && signalement.timeline.length > 0 && (
+                                                        <div className="border-t pt-3 mb-4">
+                                                            <h4 className="font-semibold text-sm mb-2">{t("signalement.timeline.title")}</h4>
+                                                            <div className="space-y-2">
+                                                                {signalement.timeline.map((entry, index) => (
+                                                                    <div key={index}
+                                                                         className="flex items-center gap-2 text-sm">
+                                                                        <Badge variant="outline" className="text-xs">
+                                                                            {t(`signalement.status.${statusConfig[entry.status]?.label}`)}
+                                                                        </Badge>
+                                                                        <span className="text-gray-500">
+                                            {formatDate(entry.timestamp)}
+                                          </span>
+                                                                    </div>
+                                                                ))}
                                                             </div>
-                                                        )}
+                                                        </div>
+                                                    )}
 
-                                                        {signalement.status === 'archive' && (
-                                                            <div className="flex items-center gap-2">
-                                                                <Badge variant="outline"
-                                                                       className="text-gray-600 border-gray-300">
-                                                                    <Archive className="w-3 h-3 mr-1"/>
-                                                                    {t("status.archived")}
-                                                                </Badge>
-                                                                <Button
-                                                                    onClick={() => validateSignalement(signalement.id)}
-                                                                    disabled={isUpdating}
-                                                                    size="sm"
-                                                                    variant="outline"
-                                                                >
-                                                                    {isUpdating === 'validating' ? (
-                                                                        <>
-                                                                            <Upload
-                                                                                className="w-4 h-4 mr-2 animate-spin"/>
-                                                                            {t("signalement.status.restore")}
-                                                                        </>
-                                                                    ) : (
-                                                                        <>
-                                                                            <CheckCircle className="w-4 h-4 mr-2"/>
-                                                                            {t("signalement.status.republish")}
-                                                                        </>
-                                                                    )}
-                                                                </Button>
-                                                            </div>
-                                                        )}
-                                                    </div>
+                                                    {/* Boutons d'action selon le statut */}
+                                                    <div className="border-t pt-3">
+                                                        <div className="flex gap-2 flex-wrap">
+                                                            {signalement.status === 'suggere' && (
+                                                                <>
+                                                                    <Button
+                                                                        onClick={() => validateSignalement(signalement.id)}
+                                                                        disabled={isUpdating}
+                                                                        size="sm"
+                                                                        className="bg-green-600 hover:bg-green-700 text-white"
+                                                                    >
+                                                                        {isUpdating === 'validating' ? (
+                                                                            <>
+                                                                                <Upload
+                                                                                    className="w-4 h-4 mr-2 animate-spin"/>
+                                                                                {t("signalement.timeline.validation")}
+                                                                            </>
+                                                                        ) : (
+                                                                            <>
+                                                                                <CheckCircle className="w-4 h-4 mr-2"/>
+                                                                                {t("signalement.status.validationpublish")}
+                                                                            </>
+                                                                        )}
+                                                                    </Button>
+                                                                    <Button
+                                                                        onClick={() => archiveSignalement(signalement.id)}
+                                                                        disabled={isUpdating}
+                                                                        size="sm"
+                                                                        variant="outline"
+                                                                    >
+                                                                        {isUpdating === 'archiving' ? (
+                                                                            <>
+                                                                                <Upload
+                                                                                    className="w-4 h-4 mr-2 animate-spin"/>
+                                                                                {t("signalement.status.archiveloading")}
+                                                                            </>
+                                                                        ) : (
+                                                                            <>
+                                                                                <Archive className="w-4 h-4 mr-2"/>
+                                                                                {t("signalement.status.archiver")}
+                                                                            </>
+                                                                        )}
+                                                                    </Button>
+                                                                </>
+                                                            )}
 
-                                                    {/* Message d'aide selon le statut */}
-                                                    <div className="mt-2 text-xs text-gray-500">
-                                                        {signalement.status === 'suggere' && (
-                                                            <p>{t("signalement.status.pendingMessage")}</p>
-                                                        )}
-                                                        {signalement.status === 'valide' && (
-                                                            <p>{t("signalement.status.publishedMessage")}</p>
-                                                        )}
-                                                        {signalement.status === 'archive' && (
-                                                            <p>{t("signalement.status.archivedMessage")}</p>
-                                                        )}
+                                                            {signalement.status === 'valide' && (
+                                                                <div className="flex items-center gap-2">
+                                                                    <Badge variant="outline"
+                                                                           className="text-green-700 border-green-300">
+                                                                        <Eye className="w-3 h-3 mr-1"/>
+                                                                        {t("signalement.status.visible")}
+                                                                    </Badge>
+                                                                    <Button
+                                                                        onClick={() => archiveSignalement(signalement.id)}
+                                                                        disabled={isUpdating}
+                                                                        size="sm"
+                                                                        variant="outline"
+                                                                    >
+                                                                        {isUpdating === 'archiving' ? (
+                                                                            <>
+                                                                                <Upload
+                                                                                    className="w-4 h-4 mr-2 animate-spin"/>
+                                                                                {t("signalement.status.archiveloading")}
+                                                                            </>
+                                                                        ) : (
+                                                                            <>
+                                                                                <Archive className="w-4 h-4 mr-2"/>
+                                                                                {t("signalement.status.archiver")}
+                                                                            </>
+                                                                        )}
+                                                                    </Button>
+                                                                </div>
+                                                            )}
+
+                                                            {signalement.status === 'archive' && (
+                                                                <div className="flex items-center gap-2">
+                                                                    <Badge variant="outline"
+                                                                           className="text-gray-600 border-gray-300">
+                                                                        <Archive className="w-3 h-3 mr-1"/>
+                                                                        {t("status.archived")}
+                                                                    </Badge>
+                                                                    <Button
+                                                                        onClick={() => validateSignalement(signalement.id)}
+                                                                        disabled={isUpdating}
+                                                                        size="sm"
+                                                                        variant="outline"
+                                                                    >
+                                                                        {isUpdating === 'validating' ? (
+                                                                            <>
+                                                                                <Upload
+                                                                                    className="w-4 h-4 mr-2 animate-spin"/>
+                                                                                {t("signalement.status.restore")}
+                                                                            </>
+                                                                        ) : (
+                                                                            <>
+                                                                                <CheckCircle className="w-4 h-4 mr-2"/>
+                                                                                {t("signalement.status.republish")}
+                                                                            </>
+                                                                        )}
+                                                                    </Button>
+                                                                </div>
+                                                            )}
+                                                        </div>
+
+                                                        {/* Message d'aide selon le statut */}
+                                                        <div className="mt-2 text-xs text-gray-500">
+                                                            {signalement.status === 'suggere' && (
+                                                                <p>{t("signalement.status.pendingMessage")}</p>
+                                                            )}
+                                                            {signalement.status === 'valide' && (
+                                                                <p>{t("signalement.status.publishedMessage")}</p>
+                                                            )}
+                                                            {signalement.status === 'archive' && (
+                                                                <p>{t("signalement.status.archivedMessage")}</p>
+                                                            )}
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </CardContent>
-                                        </Card>
-                                    )
-                                })
-                            )}
-                        </div>
-                    </motion.div>
-                </TabsContent>
-            </Tabs>
+                                                </CardContent>
+                                            </Card>
+                                        )
+                                    })
+                                )}
+                            </div>
+                        </motion.div>
+                    </TabsContent>
+                </Tabs>
+            </div>
         )
     }
 
