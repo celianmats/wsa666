@@ -302,7 +302,7 @@ const SignalementsCitoyens = ({user, onNavigate}) => {
                         initial={{opacity: 0, y: -20}}
                         animate={{opacity: 1, y: 0}}
                         transition={{duration: 0.5}}
-                        className="text-4xl font-bold text-center"
+                        className="text-4xl font-bold text-center mb-4"
                     >
                         {t("signalements.title")}
                     </motion.h1>
