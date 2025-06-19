@@ -37,6 +37,7 @@ import './i18n'
 import arianeQuartier from './assets/ariane-quartier.jpg'
 import arianeRenovation from './assets/ariane-renovation.jpg'
 import plage from './assets/plage.png'
+import logo from './assets/logo.svg'
 
 function App() {
     const {t, i18n} = useTranslation()
@@ -142,10 +143,15 @@ function App() {
             <div className="container mx-auto px-4 py-4">
                 <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-3">
-                        <button onClick={() => setCurrentPage('home')} className="cursor-pointer">
+                        <button onClick={() => setCurrentPage('home')}
+                                className="cursor-pointer flex flex-row items-center gap-4">
                             <div
-                                className="flex md:hidden w-10 h-10 bg-gradient-to-br from-blue-600 to-green-600 rounded-lg items-center justify-center">
-                                <MapPin className="w-6 h-6 text-white"/>
+                                className="flex w-10 h-10 items-center justify-center">
+                                <img
+                                    src={logo}
+                                    alt="Ville connectée"
+                                    className="w-full h-full object-cover"
+                                />
                             </div>
                             <div className="hidden md:flex">
                                 <h1 className="text-xl font-bold bg-gradient-to-r from-[#40A461] to-[#3DC8E4] hover:from-[#59E286] hover:to-[#258295] transition-colors duration-300
@@ -188,15 +194,15 @@ function App() {
                         {/* User only */}
                         {user && (
                             <Button onClick={() => setCurrentPage('signalement')} variant="outline">
-                                <BadgePlus className="w-4 h-4 md:mr-2"/>
-                                <p className="hidden md:flex">{t('nav.tips')}</p>
+                                <BadgePlus className="w-4 h-4 lg:mr-2"/>
+                                <p className="hidden lg:flex">{t('nav.tips')}</p>
                             </Button>
                         )}
 
                         {/* Every time */}
                         <Button onClick={() => setCurrentPage('auth')} variant="outline">
-                            <User className="w-4 h-4 md:mr-2"/>
-                            <p className="hidden md:flex">{user ? user.displayName : t('nav.login')}</p>
+                            <User className="w-4 h-4 lg:mr-2"/>
+                            <p className="hidden lg:flex">{user ? user.displayName : t('nav.login')}</p>
                         </Button>
                         <Button onClick={switchLang} variant="outline"
                                 className="w-15">🌐 {i18n.language === 'fr' ? 'FR' : 'EN'}</Button>
@@ -466,20 +472,28 @@ function App() {
                     />
 
                     <div className="text-center mt-8">
-                        <Button
-                            className="mr-4 bg-[#2E599A] hover:bg-[#223552]"
-                            onClick={() => setCurrentPage('signalement')}
+                        <motion.div
+                            initial={{opacity: 0, y: 30}}
+                            animate={{opacity: 1, y: 0}}
+                            transition={{duration: 0.8, delay: 0.4}}
+                            className="flex flex-col sm:flex-row gap-4 justify-center"
                         >
-                            <AlertCircle className="w-4 h-4 mr-2"/>
-                            {t("home.hero.report")}
-                        </Button>
-                        <Button
-                            variant="outline"
-                            onClick={() => window.open('https://www.openstreetmap.org/search?query=Nice%20Ariane', '_blank')}
-                        >
-                            <MapPin className="w-4 h-4 mr-2"/>
-                            {t("home.hero.viewMap")}
-                        </Button>
+                            <Button
+                                className="bg-[#2E599A] hover:bg-[#223552]"
+                                onClick={() => setCurrentPage('signalement')}
+                            >
+                                <AlertCircle className="w-4 h-4 mr-2"/>
+                                {t("home.hero.report")}
+                            </Button>
+                            <Button
+                                variant="outline"
+                                onClick={() => window.open('https://www.openstreetmap.org/search?query=Nice%20Ariane', '_blank')}
+                            >
+                                <MapPin className="w-4 h-4 mr-2"/>
+                                {t("home.hero.viewMap")}
+                            </Button>
+                        </motion.div>
+
                     </div>
                 </div>
             </section>
@@ -587,10 +601,15 @@ function App() {
                         <div>
                             <div className="flex items-center space-x-3 mb-4">
                                 <div
-                                    className="w-8 h-8 bg-gradient-to-br from-blue-600 to-green-600 rounded-lg flex items-center justify-center">
-                                    <MapPin className="w-5 h-5 text-white"/>
+                                    className="w-8 h-8 flex items-center justify-center">
+                                    <img
+                                        src={logo}
+                                        alt="Ville connectée"
+                                        className="w-full h-full object-cover"
+                                    />
                                 </div>
-                                <h3 className="text-lg font-semibold">{t('home.title')}</h3>
+                                <h3 className="text-lg font-semibold bg-gradient-to-r from-[#40A461] to-[#3DC8E4] hover:from-[#59E286] hover:to-[#258295] transition-colors duration-300
+ inline-block text-transparent bg-clip-text">{t('home.title')}</h3>
                             </div>
                             <p className="text-gray-400 mb-4">
                                 {t('footer.subtitle')}
