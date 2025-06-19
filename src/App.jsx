@@ -21,7 +21,7 @@ import {
     Home,
     UsersRound,
     Lightbulb,
-    AlertCircle, Briefcase, BadgePlus,
+    AlertCircle, Briefcase, BadgePlus, HeartHandshake,
 } from 'lucide-react'
 import {motion} from 'framer-motion'
 import {useTranslation} from 'react-i18next'
@@ -38,6 +38,11 @@ import arianeQuartier from './assets/ariane-quartier.jpg'
 import arianeRenovation from './assets/ariane-renovation.jpg'
 import plage from './assets/plage.png'
 import logo from './assets/logo.svg'
+import fleur from './assets/fleur.png'
+import cafe from './assets/cafe.png'
+import fisherie from './assets/fisherie.png'
+import cavavin from './assets/cavavin.png'
+
 
 function App() {
     const {t, i18n} = useTranslation()
@@ -166,7 +171,7 @@ function App() {
                                 onClick={() => setCurrentPage('signalements')}
                                 variant="ghost"
                                 className="flex items-center gap-2 md:flex hidden cursor-pointer hover:text-gray-600">
-                                <Briefcase className="w-4 h-4 mr-1"/>
+                                <HeartHandshake className="w-4 h-4 mr-1"/>
                                 <p>{t('nav.reports')}</p>
                             </button>
 
@@ -184,7 +189,7 @@ function App() {
                             variant="outline"
                             className="md:hidden cursor-pointer"
                         >
-                            <Briefcase className="w-4 h-4"/>
+                            <HeartHandshake className="w-4 h-4"/>
                         </Button>
                         <Button onClick={() => setCurrentPage('projets')} variant="outline"
                                 className="md:hidden cursor-pointer">
@@ -418,7 +423,8 @@ function App() {
                                             <div className="p-2 bg-blue-100 rounded-lg">
                                                 {projet.icone}
                                             </div>
-                                            <Badge variant={projet.statut === 'En cours' ? 'default' : 'secondary'}>
+                                            <Badge
+                                                variant={projet.statut === 'En cours' ? 'default' : 'secondary'}>
                                                 {projet.statut}
                                             </Badge>
                                         </div>
@@ -448,16 +454,16 @@ function App() {
                         </p>
                         <div className="flex flex-wrap justify-center gap-4 mb-8">
                             <div className="flex items-center gap-2">
-                                <div className="w-4 h-4 bg-blue-500 rounded-full"></div>
+                                <img
+                                    src={logo}
+                                    alt="Ville connectée"
+                                    className="w-4 h-4 object-cover"
+                                />
                                 <span className="text-sm text-gray-600">{t("home.map.interet")}</span>
                             </div>
                             <div className="flex items-center gap-2">
-                                <div className="w-4 h-4 bg-yellow-500 rounded-full"></div>
+                                <div className="w-4 h-4 bg-blue-500 rounded-full"></div>
                                 <span className="text-sm text-gray-600">{t("home.map.inprogress")}</span>
-                            </div>
-                            <div className="flex items-center gap-2">
-                                <div className="w-4 h-4 bg-red-500 rounded-full"></div>
-                                <span className="text-sm text-gray-600">{t("home.map.tips")}</span>
                             </div>
                         </div>
                     </div>
@@ -485,18 +491,85 @@ function App() {
                                 <AlertCircle className="w-4 h-4 mr-2"/>
                                 {t("home.hero.report")}
                             </Button>
-                            <Button
-                                variant="outline"
-                                onClick={() => window.open('https://www.openstreetmap.org/search?query=Nice%20Ariane', '_blank')}
-                            >
-                                <MapPin className="w-4 h-4 mr-2"/>
-                                {t("home.hero.viewMap")}
-                            </Button>
                         </motion.div>
 
                     </div>
                 </div>
             </section>
+
+            {/* Section Collaborateur */}
+            <section id="collaborateur" className="py-16 md:py-32 bg-gray-50">
+                <div className="container mx-auto px-4">
+                    <div className="text-center mb-12">
+                        <h2 className="text-3xl font-bold mb-4 bg-gradient-to-r from-[#40A461] to-[#3DC8E4] inline-block text-transparent bg-clip-text">
+                            {t('home.collaborators.title')}
+                        </h2>
+                        <p className="text-lg text-gray-600 mb-12">
+                            {t('home.collaborators.subtitle')}
+                        </p>
+                    </div>
+
+                    <div
+                        className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 justify-center items-center">
+                        {/* Exemple de commerce partenaire */}
+                        {[
+                            {
+                                name: "La Fisherie",
+                                logo: fisherie,
+                                link: "https://la-fisherie.fr/fr"
+                            },
+                            {
+                                name: "Cavavin",
+                                logo: cavavin,
+                                link: "https://nice-est.cavavin.co/"
+                            },
+                            {
+                                name: "Maison Fiori",
+                                logo: fleur,
+                                link: "https://maison-fiori.com/products/eden"
+                            },
+                            {
+                                name: "Café du cycliste",
+                                logo: cafe,
+                                link: "https://www.cafeducycliste.com/"
+                            }
+                        ].map((partner, index) => (
+                            <a
+                                key={index}
+                                href={partner.link}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex flex-col items-center filter grayscale hover:grayscale-0 transition-all duration-300"
+                            >
+                                <img src={partner.logo} alt={`Logo de ${partner.name}`}
+                                     className="h-16 object-contain mb-2"/>
+                                <p className="text-sm text-gray-400">{partner.name}</p>
+                            </a>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* Section Devenir un Safe Place */}
+            <section id="devenir-safeplace" className="py-16 md:py-32 bg-white">
+                <div className="container mx-auto px-4">
+                    <div className="text-center mb-12">
+                        <h2 className="text-3xl font-bold mb-4 bg-gradient-to-r from-[#40A461] to-[#3DC8E4] inline-block text-transparent bg-clip-text">
+                            {t('home.safeplace.title')}
+                        </h2>
+                        <p className="text-lg text-gray-600 mb-6">
+                            {t('home.safeplace.subtitle')}
+                        </p>
+                        <a
+                            href={`mailto:${t('footer.contact.email')}`}
+                            className="inline-block bg-[#2E599A] hover:bg-[#223552] text-white font-semibold py-2 px-6 rounded-lg transition-colors duration-300"
+                        >
+                            {t('home.safeplace.cta')}
+                        </a>
+                    </div>
+                </div>
+            </section>
+
 
             {/* Section Formulaire */}
             <section id="contact" className="py-16 md:py-32 bg-gradient-to-br from-blue-50 to-green-50">
@@ -621,11 +694,11 @@ function App() {
                             <div className="space-y-2 text-gray-400">
                                 <div className="flex items-center">
                                     <Mail className="w-4 h-4 mr-2"/>
-                                    <span>{t('footer.contact.email')}</span>
+                                    <a href={`mailto:${t('footer.contact.email')}`}>{t('footer.contact.email')}</a>
                                 </div>
                                 <div className="flex items-center">
                                     <Phone className="w-4 h-4 mr-2"/>
-                                    <span>{t('footer.contact.phone')}</span>
+                                    <a href={`tel:${t('footer.contact.phone')}`}>{t('footer.contact.phone')}</a>
                                 </div>
                                 <div className="flex items-center">
                                     <MapPin className="w-4 h-4 mr-2"/>
@@ -637,16 +710,22 @@ function App() {
                         <div>
                             <h4 className="text-lg font-semibold mb-4">{t('footer.links.title')}</h4>
                             <ul className="space-y-2 text-gray-400">
-                                <li><a href="#"
+                                <li><a href="https://www.nice.fr/fr/"
                                        className="hover:text-white transition-colors">{t('footer.links.municipality')}</a>
                                 </li>
-                                <li><a href="#"
+                                <li><a href="https://www.nicecotedazur.org/"
                                        className="hover:text-white transition-colors">{t('footer.links.metropolis')}</a>
                                 </li>
-                                <li><a href="#"
-                                       className="hover:text-white transition-colors">{t('footer.links.anru')}</a></li>
+                                <li><a href="https://www.anru.fr/"
+                                       className="hover:text-white transition-colors">{t('footer.links.anru')}</a>
+                                </li>
                                 <li><a href="#"
                                        className="hover:text-white transition-colors">{t('footer.links.legals')}</a>
+                                </li>
+                                <li><a href="../public/Charte_dengagement_Nice_safe_place..pdf"
+                                       target="_blank"
+                                       rel="noopener noreferrer"
+                                       className="hover:text-white transition-colors">{t('footer.links.engage')}</a>
                                 </li>
                             </ul>
                         </div>
