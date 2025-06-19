@@ -3,10 +3,10 @@ export default {
         // Navigation
         nav: {
             home: "Home",
-            reports: "Tips & Info",
+            reports: "Your safe places",
             projects: "Projects",
             map: "Map",
-            tips: "Add new tip",
+            tips: "Add a safe place",
             contact: "Contact",
             login: "Sign In",
             logout: "Sign Out",
@@ -25,7 +25,7 @@ export default {
             back: "Back to home page",
             hero: {
                 discover: "Discover projects",
-                report: "Share a Safe Place",
+                report: "Share a safe place",
                 viewMap: "View on OpenStreetMap"
             },
             vision: {
@@ -53,13 +53,17 @@ export default {
             map: {
                 title: "Interactive Map",
                 subtitle: "Explore the city and its projects in real time",
-                interet: "Points of interest",
-                inprogress: "Projects in progress",
+                interet: "Certified locations",
+                inprogress: "Recommended locations",
                 tips: "tips & info",
             },
+            collaborators: {
+                title: "They trust us",
+                subtitle: "Our partners and clients who believe in our expertise.",
+            },
             participate: {
-                title: "Participate to the Project",
-                subtitle: "Your voice matters in the city transformation",
+                title: "Join our newsletter",
+                subtitle: "To not miss the latest news from safe places",
                 form: {
                     title: "Registration form",
                     subtitle: "Join the community of citizens committed to the Nice of tomorrow.",
@@ -72,6 +76,11 @@ export default {
                     submit: "Join the project",
                     success: "Thank you! Your registration has been recorded."
                 }
+            },
+            safeplace:{
+                title:"Join Us",
+                subtitle:"Interested in becoming a Safe Place? Contact us for more information.",
+                cta:"Contact Us"
             }
         },
 
@@ -128,8 +137,8 @@ export default {
 
         // Signalements (now Tips & Info)
         signalements: {
-            title: "Citizen Tips & Information",
-            subtitle: "Share your tips, initiatives, and useful information for the city.",
+            title: "Your safe places",
+            subtitle: "Share the places you find inclusive, accessible and respectful.",
             search_placeholder: "Search tips or info...",
             filters: {
                 allStatuses: "All statuses",
@@ -188,7 +197,6 @@ export default {
                 location: "Location",
                 date: "Date",
                 follow_up_title: "Follow-up",
-                published: "Published",
             },
             view_mode: {
                 grid: "Grid",
@@ -301,6 +309,7 @@ export default {
                 metropolis: "Nice Côte d'Azur Metropolis",
                 anru: "ANRU",
                 legals: "Terms of use",
+                engage: "Join Us"
             },
             legal: {
                 title: "Legal Information",

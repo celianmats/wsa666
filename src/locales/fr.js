@@ -3,10 +3,10 @@ export default {
         // Navigation
         nav: {
             home: "Accueil",
-            reports: "Conseils & Infos",
+            reports: "Vos safe places",
             projects: "Projets",
             map: "Carte",
-            tips: "Ajouter une info",
+            tips: "Ajouter une safe place",
             contact: "Contact",
             login: "Se connecter",
             logout: "Se déconnecter",
@@ -53,13 +53,17 @@ export default {
             map: {
                 title: "Carte Interactive",
                 subtitle: "Explorez la ville et ses projets en temps réel",
-                interet: "Points d'intérêt",
-                inprogress: "Projets en cours",
+                interet: "Lieux certifiés",
+                inprogress: "Lieux conseillés",
                 tips: "conseils & infos",
             },
+            collaborators: {
+                title: "Ils nous font confiance",
+                subtitle: "Nos partenaires et clients qui croient en notre expertise.",
+            },
             participate: {
-                title: "Participez au Projet",
-                subtitle: "Votre voix compte dans la transformation de la ville",
+                title: "Rejoignez notre newsletter",
+                subtitle: "Pour ne pas louper les nouveautés de safe places  ",
                 form: {
                     title: "Formulaire d'inscription",
                     subtitle: "Rejoignez la communauté des citoyens engagés pour le Nice de demain.",
@@ -72,6 +76,11 @@ export default {
                     submit: "S'inscrire au projet",
                     success: "Merci ! Votre inscription a été prise en compte."
                 }
+            },
+            safeplace:{
+                title:"Nous rejoindre",
+                subtitle:"Vous souhaitez devenir un lieu Safe Place ? Contactez nous pour avoir plus d’information ",
+                cta:"Contactez-Nous"
             }
         },
 
@@ -128,8 +137,8 @@ export default {
 
         // Signalements (maintenant Conseils & Infos)
         signalements: {
-            title: "Conseils & Infos Citoyens",
-            subtitle: "Partagez vos astuces, initiatives et informations utiles pour la ville.",
+            title: "Vos safe places",
+            subtitle: "Partagez les endroits que vous trouvez, inclusifs, accessibles et respectueux.",
             search_placeholder: "Rechercher un conseil ou une info...",
             filters: {
                 allStatuses: "Tous les statuts",
@@ -279,6 +288,7 @@ export default {
                 metropolis: "Métropole Nice Côte d'Azur",
                 anru: "ANRU",
                 legals: "Mentions légales",
+                engage: "Nous rejoindre"
             },
             legal: {
                 title: "Informations Légales",
