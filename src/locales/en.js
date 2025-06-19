@@ -25,7 +25,7 @@ export default {
             back: "Back to home page",
             hero: {
                 discover: "Discover projects",
-                report: "Share a tip",
+                report: "Share a Safe Place",
                 viewMap: "View on OpenStreetMap"
             },
             vision: {
@@ -188,6 +188,7 @@ export default {
                 location: "Location",
                 date: "Date",
                 follow_up_title: "Follow-up",
+                published: "Published",
             },
             view_mode: {
                 grid: "Grid",

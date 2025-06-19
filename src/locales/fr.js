@@ -25,7 +25,7 @@ export default {
             back: "Retour à l'accueil",
             hero: {
                 discover: "Découvrir les projets",
-                report: "Partager un conseil",
+                report: "Partager une safe place",
                 viewMap: "Voir sur OpenStreetMap"
             },
             vision: {
@@ -175,7 +175,8 @@ export default {
             timeline: {
                 follow_up_title: "Suivi",
                 location: "Lieu",
-                date: "Date"
+                date: "Date",
+                published: "Publié",
             },
             locale: "fr-FR", // utilisé dans les appels à `toLocaleDateString`
         },
