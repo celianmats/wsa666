@@ -459,11 +459,11 @@ function App() {
                                     alt="Ville connectée"
                                     className="w-4 h-4 object-cover"
                                 />
-                                <span className="text-sm text-gray-600">{t("home.map.interet")}</span>
+                                <span className="text-sm text-gray-600">{t("home.map.inprogress")}</span>
                             </div>
                             <div className="flex items-center gap-2">
                                 <div className="w-4 h-4 bg-blue-500 rounded-full"></div>
-                                <span className="text-sm text-gray-600">{t("home.map.inprogress")}</span>
+                                <span className="text-sm text-gray-600">{t("home.map.interet")}</span>
                             </div>
                         </div>
                     </div>
